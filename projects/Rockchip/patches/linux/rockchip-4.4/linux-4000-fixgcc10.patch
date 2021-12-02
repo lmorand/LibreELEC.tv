@@ -1,0 +1,22 @@
+diff -rupN linux/scripts/dtc/dtc-lexer.l linux-new/scripts/dtc/dtc-lexer.l
+--- linux/scripts/dtc/dtc-lexer.l	2020-06-11 08:47:39.000000000 +0200
++++ linux-new/scripts/dtc/dtc-lexer.l	2021-12-01 10:55:12.579245136 +0100
+@@ -38,7 +38,6 @@ LINECOMMENT	"//".*\n
+ #include "srcpos.h"
+ #include "dtc-parser.tab.h"
+ 
+-YYLTYPE yylloc;
+ extern bool treesource_error;
+ 
+ /* CAUTION: this will stop working if we ever use yyless() or yyunput() */
+diff -rupN linux/scripts/dtc/dtc-lexer.lex.c_shipped linux-new/scripts/dtc/dtc-lexer.lex.c_shipped
+--- linux/scripts/dtc/dtc-lexer.lex.c_shipped	2020-06-11 08:47:39.000000000 +0200
++++ linux-new/scripts/dtc/dtc-lexer.lex.c_shipped	2021-12-01 11:02:11.140262658 +0100
+@@ -631,7 +631,6 @@ char *yytext;
+ #include "srcpos.h"
+ #include "dtc-parser.tab.h"
+ 
+-YYLTYPE yylloc;
+ extern bool treesource_error;
+ 
+ /* CAUTION: this will stop working if we ever use yyless() or yyunput() */

@@ -1,0 +1,12 @@
+diff -rupN kernel-91d5b4b982b76ee1a3f2d7b86c501792a8845c17/drivers/media/usb/em28xx/em28xx-cards.c kernel-91d5b4b982b76ee1a3f2d7b86c501792a8845c17-new/drivers/media/usb/em28xx/em28xx-cards.c
+--- kernel-91d5b4b982b76ee1a3f2d7b86c501792a8845c17/drivers/media/usb/em28xx/em28xx-cards.c	2020-06-11 08:47:39.000000000 +0200
++++ kernel-91d5b4b982b76ee1a3f2d7b86c501792a8845c17-new/drivers/media/usb/em28xx/em28xx-cards.c	2021-07-02 17:58:15.070879607 +0200
+@@ -2471,6 +2471,8 @@ struct usb_device_id em28xx_id_table[] =
+ 			.driver_info = EM28178_BOARD_PCTV_461E },
+ 	{ USB_DEVICE(0x2013, 0x025f),
+ 			.driver_info = EM28178_BOARD_PCTV_292E },
++	{ USB_DEVICE(0x2040, 0x8268), /* Hauppauge Retail WinTV-soloHD Bulk */
++                        .driver_info = EM28178_BOARD_PCTV_292E },
+ 	{ USB_DEVICE(0x0413, 0x6f07),
+ 			.driver_info = EM2861_BOARD_LEADTEK_VC100 },
+ 	{ USB_DEVICE(0xeb1a, 0x8179),
