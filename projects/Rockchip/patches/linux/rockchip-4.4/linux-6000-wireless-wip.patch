@@ -1,0 +1,45 @@
+diff -ruPN kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/platform-config.mak kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/platform-config.mak
+--- kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/platform-config.mak	2020-06-11 08:47:39.000000000 +0200
++++ kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/platform-config.mak	2021-12-29 16:29:01.381063941 +0100
+@@ -9,7 +9,7 @@
+ 
+ # Enable -g to help debug. Deassembly from .o to .S would help to track to 
+ # the problomatic line from call stack dump.
+-ccflags-y += -g
++ccflags-y += -O3
+ 
+ ############################################################
+ # If you change the settings, please change the file synchronization
+@@ -29,7 +29,7 @@
+ #ccflags-y += -DCONFIG_SSV_DPD
+ 
+ #ccflags-y += -DCONFIG_SSV_CABRIO_MB_DEBUG
+-ccflags-y += -DCONFIG_SSV6XXX_DEBUGFS
++#ccflags-y += -DCONFIG_SSV6XXX_DEBUGFS
+ 
+ #SDIO
+ ccflags-y += -DCONFIG_SSV_TX_LOWTHRESHOLD
+diff -ruPN kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051-generic-wlan.c kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051-generic-wlan.c
+--- kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051-generic-wlan.c	2020-06-11 08:47:39.000000000 +0200
++++ kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051-generic-wlan.c	2021-12-28 16:54:56.103302460 +0100
+@@ -95,7 +95,7 @@
+ #ifndef ROCKCHIP_WIFI_AUTO_SUPPORT
+         rockchip_wifi_set_carddetect(0);
+ #endif
+-        rockchip_wifi_power(0);
++//        rockchip_wifi_power(0);
+         g_wifidev_registered = 0;
+     }
+     return;
+diff -ruPN kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051.cfg kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051.cfg
+--- kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051.cfg	2020-06-11 08:47:39.000000000 +0200
++++ kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051.cfg	2021-12-28 23:04:30.836196249 +0100
+@@ -10,7 +10,7 @@
+ ccflags-y += -DKTHREAD_BIND
+ #ccflags-y += -DROCKCHIP_WIFI_AUTO_SUPPORT
+ ccflags-y += -DCONFIG_SSV_RSSI
+-ccflags-y += -DCONFIG_SSV_VENDOR_EXT_SUPPORT
++#ccflags-y += -DCONFIG_SSV_VENDOR_EXT_SUPPORT
+ 
+ ############################################################
+ # Compiler path
