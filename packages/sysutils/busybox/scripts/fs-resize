@@ -23,6 +23,9 @@ if [ -e /storage/.please_resize_me ] ; then
 
   # get disk: /dev/sdx2 -> /dev/sdx, /dev/mmcblkxp2 -> /dev/mmcblkx
   case $PART in
+    "/dev/rknand"*)
+      DISK=$(echo $PART | sed s/p2$//g)
+      ;;
     "/dev/mmcblk"*)
       DISK=$(echo $PART | sed s/p2$//g)
       ;;
