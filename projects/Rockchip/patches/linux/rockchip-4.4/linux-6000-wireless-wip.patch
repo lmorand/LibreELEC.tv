@@ -1,12 +1,27 @@
+diff -ruPN kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/Makefile kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/Makefile
+--- kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/Makefile	2020-06-11 08:47:39.000000000 +0200
++++ kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/Makefile	2021-12-30 23:18:22.502850391 +0100
+@@ -35,11 +35,6 @@
+ KERN_SRCS += smac/ap.c
+ KERN_SRCS += smac/ampdu.c
+ KERN_SRCS += smac/ssv6xxx_debugfs.c
+-KERN_SRCS += smac/sec_ccmp.c
+-KERN_SRCS += smac/sec_tkip.c
+-KERN_SRCS += smac/sec_wep.c
+-KERN_SRCS += smac/wapi_sms4.c
+-KERN_SRCS += smac/sec_wpi.c
+ KERN_SRCS += smac/efuse.c
+ KERN_SRCS += smac/ssv_pm.c
+ KERN_SRCS += smac/sar.c
 diff -ruPN kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/platform-config.mak kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/platform-config.mak
 --- kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/platform-config.mak	2020-06-11 08:47:39.000000000 +0200
-+++ kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/platform-config.mak	2021-12-29 16:29:01.381063941 +0100
++++ kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/platform-config.mak	2021-12-30 22:18:38.638559148 +0100
 @@ -9,7 +9,7 @@
  
  # Enable -g to help debug. Deassembly from .o to .S would help to track to 
  # the problomatic line from call stack dump.
 -ccflags-y += -g
-+ccflags-y += -O3
++ccflags-y += -O2
  
  ############################################################
  # If you change the settings, please change the file synchronization
@@ -19,6 +34,23 @@ diff -ruPN kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/platform-config.mak
  
  #SDIO
  ccflags-y += -DCONFIG_SSV_TX_LOWTHRESHOLD
+@@ -69,12 +69,12 @@
+ 
+ # Use crypto in SSV driver.
+ ccflags-y += -DUSE_LOCAL_CRYPTO
+-ccflags-y += -DUSE_LOCAL_WEP_CRYPTO
++#ccflags-y += -DUSE_LOCAL_WEP_CRYPTO
+ #ccflags-y += -DUSE_LOCAL_TKIP_CRYPTO
+-ccflags-y += -DUSE_LOCAL_CCMP_CRYPTO
+-ccflags-y += -DUSE_LOCAL_SMS4_CRYPTO
++#ccflags-y += -DUSE_LOCAL_CCMP_CRYPTO
++#ccflags-y += -DUSE_LOCAL_SMS4_CRYPTO
+ 
+-ccflags-y += -DCONFIG_SSV_WAPI
++#ccflags-y += -DCONFIG_SSV_WAPI
+ 
+ ccflags-y += -DFW_WSID_WATCH_LIST
+ #ccflags-y += -DUSE_BATCH_RX
 diff -ruPN kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051-generic-wlan.c kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051-generic-wlan.c
 --- kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051-generic-wlan.c	2020-06-11 08:47:39.000000000 +0200
 +++ kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051-generic-wlan.c	2021-12-28 16:54:56.103302460 +0100
@@ -33,7 +65,7 @@ diff -ruPN kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051-generic-wla
      return;
 diff -ruPN kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051.cfg kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051.cfg
 --- kernel/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051.cfg	2020-06-11 08:47:39.000000000 +0200
-+++ kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051.cfg	2021-12-28 23:04:30.836196249 +0100
++++ kernel-new/drivers/net/wireless/rockchip_wlan/ssv6xxx/ssv6051.cfg	2021-12-31 14:35:38.390007593 +0100
 @@ -10,7 +10,7 @@
  ccflags-y += -DKTHREAD_BIND
  #ccflags-y += -DROCKCHIP_WIFI_AUTO_SUPPORT
