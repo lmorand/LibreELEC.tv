@@ -1,0 +1,23 @@
+From 35c84f8210b06ee08d155f233c7ccb2642271646 Mon Sep 17 00:00:00 2001
+From: "sayon.chen" <sayon.chen@rock-chips.com>
+Date: Fri, 23 Apr 2021 15:42:40 +0800
+Subject: [PATCH] [iep1]: Fix iep1 ctx double free issue
+
+Change-Id: Ia08ffe74466d756be25069ab28d9be6be7799efd
+Signed-off-by: sayon.chen <sayon.chen@rock-chips.com>
+---
+ mpp/vproc/iep/iep.cpp | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/mpp/vproc/iep/iep.cpp b/mpp/vproc/iep/iep.cpp
+index 41ba5a00..dab8d371 100644
+--- a/mpp/vproc/iep/iep.cpp
++++ b/mpp/vproc/iep/iep.cpp
+@@ -126,7 +126,6 @@ MPP_RET iep_deinit(IepCtx ctx)
+         impl->fd = -1;
+     }
+ 
+-    mpp_free(impl);
+     return MPP_OK;
+ }
+ 
