@@ -1,0 +1,390 @@
+From c2a32797230aece341856e09b0139cf3d259e07b Mon Sep 17 00:00:00 2001
+From: Alex Bee <knaerzche@gmail.com>
+Date: Fri, 24 Apr 2020 12:36:13 +0200
+Subject: [PATCH] media: hantro: add Rockchip RK3228
+
+RK3228 has the same VPU IP-Block as RK3399 has and at the current state
+the driver can be taken as is.
+This adds just a new compatible string to bindings file if any future
+ajustment for this SoC is necessary.
+---
+ Documentation/devicetree/bindings/media/rockchip-vpu.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/media/rockchip-vpu.yaml b/Documentation/devicetree/bindings/media/rockchip-vpu.yaml
+index c81dbc3e8960..ddbda080950e 100644
+--- a/Documentation/devicetree/bindings/media/rockchip-vpu.yaml
++++ b/Documentation/devicetree/bindings/media/rockchip-vpu.yaml
+@@ -16,6 +16,7 @@ description:
+ properties:
+   compatible:
+     enum:
++      - rockchip,rk3228-vpu
+       - rockchip,rk3288-vpu
+       - rockchip,rk3328-vpu
+       - rockchip,rk3399-vpu
+
+From 86ac3c31aadac54e5c4a941ae25147b8e1045676 Mon Sep 17 00:00:00 2001
+From: Alex Bee <knaerzche@gmail.com>
+Date: Fri, 24 Apr 2020 12:38:24 +0200
+Subject: [PATCH] ARM: dts: rockchip: add vpu node for RK322x
+
+This adds VPU node to RK3228. While at it also add the required power-domain
+controller and qos node to make the VPU work on this SoC.
+---
+ arch/arm/boot/dts/rk322x.dtsi | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boot/dts/rk322x.dtsi b/arch/arm/boot/dts/rk322x.dtsi
+index f98a945c68d3..b233baeb20ef 100644
+--- a/arch/arm/boot/dts/rk322x.dtsi
++++ b/arch/arm/boot/dts/rk322x.dtsi
+@@ -680,6 +680,18 @@ opp-500000000 {
+ 		};
+ 	};
+ 
++	vpu: video-codec@20020000 {
++		compatible = "rockchip,rk3228-vpu", "rockchip,rk3399-vpu";
++		reg = <0x20020000 0x800>;
++		interrupts = <GIC_SPI 11 IRQ_TYPE_LEVEL_HIGH>,
++			     <GIC_SPI  9 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "vepu", "vdpu";
++		clocks = <&cru ACLK_VPU>, <&cru HCLK_VPU>;
++		clock-names = "aclk", "hclk";
++		iommus = <&vpu_mmu>;
++		power-domains = <&power RK3228_PD_VPU>;
++	};
++
+ 	vpu_mmu: iommu@20020800 {
+ 		compatible = "rockchip,iommu";
+ 		reg = <0x20020800 0x100>;
+
+From d99de1ed4674749d5c52b0acd9e22e04a08cf28b Mon Sep 17 00:00:00 2001
+From: Alex Bee <knaerzche@gmail.com>
+Date: Tue, 26 May 2020 14:12:35 +0200
+Subject: [PATCH] ARM: dts: rockchip: add vpu node for RK3188
+
+Add VPU node to RK3188s dtsi.
+---
+ arch/arm/boot/dts/rk3188.dtsi | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/arch/arm/boot/dts/rk3188.dtsi b/arch/arm/boot/dts/rk3188.dtsi
+index 79742ea997eb..74bb2525715c 100644
+--- a/arch/arm/boot/dts/rk3188.dtsi
++++ b/arch/arm/boot/dts/rk3188.dtsi
+@@ -141,6 +141,19 @@ smp-sram@0 {
+ 		};
+ 	};
+ 
++	vpu: video-codec@10104000 {
++		compatible = "rockchip,rk3188-vpu";
++		reg = <0x10104000 0x800>;
++		interrupts = <GIC_SPI  9 IRQ_TYPE_LEVEL_HIGH>,
++                             <GIC_SPI 10 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "vepu", "vdpu";
++		clocks = <&cru ACLK_VDPU>, <&cru HCLK_VDPU>,
++		         <&cru ACLK_VEPU>, <&cru HCLK_VEPU>;
++		clock-names = "aclk_vdpu", "hclk_vdpu",
++		              "aclk_vepu", "hclk_vepu";
++		power-domains = <&power RK3188_PD_VIDEO>;
++	};
++
+ 	vop0: vop@1010c000 {
+ 		compatible = "rockchip,rk3188-vop";
+ 		reg = <0x1010c000 0x1000>;
+
+From 996f741a44faecc4b9485ee0b8258b3e3441474e Mon Sep 17 00:00:00 2001
+From: Alex Bee <knaerzche@gmail.com>
+Date: Tue, 26 May 2020 17:54:22 +0200
+Subject: [PATCH] media: hantro: adapt Kconfig help text
+
+Add RK3036, RK3066, RK3188 and RK322x to Kconfig help
+text
+---
+ drivers/staging/media/hantro/Kconfig | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/staging/media/hantro/Kconfig b/drivers/staging/media/hantro/Kconfig
+index 5b6cf9f62b1a..ef8bd5067be8 100644
+--- a/drivers/staging/media/hantro/Kconfig
++++ b/drivers/staging/media/hantro/Kconfig
+@@ -30,4 +30,5 @@ config VIDEO_HANTRO_ROCKCHIP
+ 	depends on ARCH_ROCKCHIP || COMPILE_TEST
+ 	default y
+ 	help
+-	  Enable support for RK3288, RK3328, and RK3399 SoCs.
++	  Enable support for RK3036, RK3066, RK3188, RK322x
++	  RK3288, RK3328 and RK3399 SoCs.
+
+From 839059f221d04ef0a6c7e03bcade1e50148d06cd Mon Sep 17 00:00:00 2001
+From: Alex Bee <knaerzche@gmail.com>
+Date: Sat, 23 May 2020 14:22:54 +0200
+Subject: [PATCH] ARM: dts: rockchip: add vdec node for RK322x
+
+RK322x has the same VDEC IP block as RK3399 has and the driver in its
+current state can be used as is.
+Other than RK3399 its SCLKs have also to set to a fixed value to make it
+work correctly. Rather than doing this in the driver it is done via
+"assigned-clocks" in the vdec node.
+---
+ arch/arm/boot/dts/rk322x.dtsi | 25 +++++++++++++++++++++++--
+ 1 file changed, 23 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boot/dts/rk322x.dtsi b/arch/arm/boot/dts/rk322x.dtsi
+index b233baeb20ef..de5727e0bc94 100644
+--- a/arch/arm/boot/dts/rk322x.dtsi
++++ b/arch/arm/boot/dts/rk322x.dtsi
+@@ -703,6 +703,27 @@ vpu_mmu: iommu@20020800 {
+ 		power-domains = <&power RK3228_PD_VPU>;
+ 	};
+ 
++	vdec: video-codec@20030000 {
++		compatible = "rockchip,rk322x-vdec", "rockchip,rk3399-vdec";
++		reg = <0x20030000 0x400>;
++		interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
++		clocks = <&cru ACLK_RKVDEC>, <&cru HCLK_RKVDEC>,
++			 <&cru SCLK_VDEC_CABAC>, <&cru SCLK_VDEC_CORE>;
++		clock-names = "axi", "ahb", "cabac", "core";
++		assigned-clocks = <&cru ACLK_RKVDEC>, <&cru SCLK_VDEC_CABAC>,
++		                  <&cru SCLK_VDEC_CORE>;
++		assigned-clock-rates = <500000000>, <300000000>,
++					<300000000>;
++		resets = <&cru SRST_RKVDEC_H>, <&cru SRST_RKVDEC_A>,
++		         <&cru SRST_RKVDEC_CORE>, <&cru SRST_RKVDEC_CABAC>,
++		         <&cru SRST_RKVDEC_NOC_A>, <&cru SRST_RKVDEC_NOC_H>;
++		reset-names = "video_h", "video_a",
++			       "video_core", "video_cabac",
++			       "niu_a", "niu_h";
++		power-domains = <&power RK3228_PD_RKVDEC>;
++		iommus = <&vdec_mmu>;
++	};
++
+ 	vdec_mmu: iommu@20030480 {
+ 		compatible = "rockchip,iommu";
+ 		reg = <0x20030480 0x40>, <0x200304c0 0x40>;
+
+
+From 44db6f132cfe12d3042e521d55d01e71b3b68f92 Mon Sep 17 00:00:00 2001
+From: Alex Bee <knaerzche@gmail.com>
+Date: Thu, 23 Jul 2020 17:25:12 +0200
+Subject: [PATCH] ARM: dts: add vpu node for RK3066
+
+Signed-off-by: Alex Bee <knaerzche@gmail.com>
+---
+ arch/arm/boot/dts/rk3066a.dtsi | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/arch/arm/boot/dts/rk3066a.dtsi b/arch/arm/boot/dts/rk3066a.dtsi
+index f71529e6949f..d9984d0f8f23 100644
+--- a/arch/arm/boot/dts/rk3066a.dtsi
++++ b/arch/arm/boot/dts/rk3066a.dtsi
+@@ -194,6 +194,19 @@ smp-sram@0 {
+ 		};
+ 	};
+ 
++	vpu: video-codec@10104000 {
++		compatible = "rockchip,rk3188-vpu";
++		reg = <0x10104000 0x800>;
++		interrupts = <GIC_SPI  9 IRQ_TYPE_LEVEL_HIGH>,
++                             <GIC_SPI 10 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "vepu", "vdpu";
++		clocks = <&cru ACLK_VDPU>, <&cru HCLK_VDPU>,
++		         <&cru ACLK_VEPU>, <&cru HCLK_VEPU>;
++		clock-names = "aclk_vdpu", "hclk_vdpu",
++		              "aclk_vepu", "hclk_vepu";
++		power-domains = <&power RK3066_PD_VIDEO>;
++	};
++
+ 	vop0: vop@1010c000 {
+ 		compatible = "rockchip,rk3066-vop";
+ 		reg = <0x1010c000 0x19c>;
+
+From e9d4e43dc5a6fbcdff3be92e4ec40c7bb787a897 Mon Sep 17 00:00:00 2001
+From: Alex Bee <knaerzche@gmail.com>
+Date: Sun, 11 Oct 2020 14:48:44 +0200
+Subject: [PATCH] ARM: dts: rockchip: Add IEP node for RK322x
+
+Signed-off-by: Alex Bee <knaerzche@gmail.com>
+---
+ arch/arm/boot/dts/rk322x.dtsi | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boot/dts/rk322x.dtsi b/arch/arm/boot/dts/rk322x.dtsi
+index de5727e0bc94..a2012a44421d 100644
+--- a/arch/arm/boot/dts/rk322x.dtsi
++++ b/arch/arm/boot/dts/rk322x.dtsi
+@@ -781,6 +781,21 @@ rga: rga@20060000 {
+ 		power-domains = <&power RK3228_PD_VIO>;
+ 	};
+ 
++	iep: iep@20070000 {
++		compatible = "rockchip,rk3228-iep";
++		reg = <0x20070000 0x800>;
++		interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "iep";
++		clocks = <&cru ACLK_IEP>,
++		         <&cru HCLK_IEP>;
++		clock-names = "axi", "ahb";
++		resets = <&cru SRST_IEP_A>,
++		         <&cru SRST_IEP_H>;
++		reset-names = "axi", "ahb";
++		power-domains = <&power RK3228_PD_VIO>;
++		iommus = <&iep_mmu>;
++	};
++
+ 	iep_mmu: iommu@20070800 {
+ 		compatible = "rockchip,iommu";
+ 		reg = <0x20070800 0x100>;
+
+From e01ddeae4d23380545603195f72054a604ef45f4 Mon Sep 17 00:00:00 2001
+From: Alex Bee <knaerzche@gmail.com>
+Date: Wed, 14 Oct 2020 20:22:38 +0200
+Subject: [PATCH] ARM64: dts: rockchip: Add IEP node for RK3328
+
+while at that also add the iep mmu and powerdomain nodes
+
+Signed-off-by: Alex Bee <knaerzche@gmail.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3328.dtsi | 38 ++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3328.dtsi b/arch/arm64/boot/dts/rockchip/rk3328.dtsi
+index 9a7a5c1adaa8..9fce8036df9b 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3328.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3328.dtsi
+@@ -336,6 +336,12 @@ pd_vpu@RK3328_PD_VPU {
+ 				reg = <RK3328_PD_VPU>;
+ 				clocks = <&cru ACLK_VPU>, <&cru HCLK_VPU>;
+ 			};
++			pd_vio@RK3328_PD_VIO {
++				reg = <RK3328_PD_VIO>;
++				clocks = <&cru ACLK_IEP>,
++					 <&cru HCLK_IEP>;
++				pm_qos = <&qos_vio>;
++			};
+ 		};
+ 
+ 		reboot-mode {
+@@ -740,6 +746,33 @@ vop_mmu: iommu@ff373f00 {
+ 		status = "disabled";
+ 	};
+ 
++	iep: iep@ff3a0000 {
++		compatible = "rockchip,rk3328-iep", "rockchip,rk3228-iep";
++		reg = <0x0 0xff3a0000 0x0 0x800>;
++		interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "iep";
++		clocks = <&cru ACLK_IEP>,
++			 <&cru HCLK_IEP>;
++		clock-names = "axi", "ahb";
++		resets = <&cru SRST_IEP_A>,
++			 <&cru SRST_IEP_H>;
++		reset-names = "axi", "ahb";
++		power-domains = <&power RK3328_PD_VIO>;
++		iommus = <&iep_mmu>;
++	};
++
++	iep_mmu: iommu@ff3a0800 {
++		compatible = "rockchip,iommu";
++		reg = <0x0 0xff3a0800 0x0 0x40>;
++		interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "iep_mmu";
++		clocks = <&cru ACLK_IEP>,
++			 <&cru HCLK_IEP>;
++		clock-names = "aclk", "iface";
++		power-domains = <&power RK3328_PD_VIO>;
++		#iommu-cells = <0>;
++	};
++
+ 	hdmi: hdmi@ff3c0000 {
+ 		compatible = "rockchip,rk3328-dw-hdmi";
+ 		reg = <0x0 0xff3c0000 0x0 0x20000>;
+@@ -1046,6 +1079,11 @@ sdmmc_ext: dwmmc@ff5f0000 {
+ 		status = "disabled";
+ 	};
+ 
++	qos_vio: qos@ff760080 {
++		compatible = "syscon";
++		reg = <0x0 0xff760080 0x0 0x20>;
++	};
++
+ 	gic: interrupt-controller@ff811000 {
+ 		compatible = "arm,gic-400";
+ 		#interrupt-cells = <3>;
+
+From ce22eb2d667873d807131360f33980e5c7459f00 Mon Sep 17 00:00:00 2001
+From: Alex Bee <knaerzche@gmail.com>
+Date: Wed, 14 Oct 2020 20:51:04 +0200
+Subject: [PATCH] ARM64: dts: rockchip: Add IEP node for RK3368
+
+Signed-off-by: Alex Bee <knaerzche@gmail.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3368.dtsi | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3368.dtsi b/arch/arm64/boot/dts/rockchip/rk3368.dtsi
+index 3746f23dc3df..9403135881e8 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3368.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3368.dtsi
+@@ -714,6 +714,20 @@ i2s_8ch: i2s-8ch@ff898000 {
+ 		status = "disabled";
+ 	};
+ 
++	iep: iep@ff900000 {
++		compatible = "rockchip,rk3368-iep", "rockchip,rk3228-iep";
++		reg = <0x0 0xff900000 0x0 0x800>;
++		interrupts = <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "iep";
++		clocks = <&cru ACLK_IEP>,
++			 <&cru HCLK_IEP>;
++		clock-names = "axi", "ahb";
++		resets = <&cru SRST_IEP_AXI>,
++			 <&cru SRST_IEP_AHB>;
++               reset-names = "axi", "ahb";
++               iommus = <&iep_mmu>;
++	};
++
+ 	iep_mmu: iommu@ff900800 {
+ 		compatible = "rockchip,iommu";
+ 		reg = <0x0 0xff900800 0x0 0x100>;
+@@ -722,7 +736,6 @@ iep_mmu: iommu@ff900800 {
+ 		clocks = <&cru ACLK_IEP>, <&cru HCLK_IEP>;
+ 		clock-names = "aclk", "iface";
+ 		#iommu-cells = <0>;
+-		status = "disabled";
+ 	};
+ 
+ 	isp_mmu: iommu@ff914000 {
+
+diff --git a/arch/arm/boot/dts/rk322x.dtsi b/arch/arm/boot/dts/rk322x.dtsi
+index 6b2d9ce24..2297b43bf 100644
+--- a/arch/arm/boot/dts/rk322x.dtsi
++++ b/arch/arm/boot/dts/rk322x.dtsi
+@@ -770,7 +770,7 @@ vpu_mmu: iommu@20020800 {
+ 		clocks = <&cru ACLK_VPU>, <&cru HCLK_VPU>;
+ 		clock-names = "aclk", "iface";
+ 		#iommu-cells = <0>;
+-		status = "disabled";
++		power-domains = <&power RK3228_PD_VPU>;
+ 	};
+ 
+ 	vdec: video-codec@20030000 {
+@@ -801,7 +801,7 @@ vdec_mmu: iommu@20030480 {
+ 		clocks = <&cru ACLK_RKVDEC>, <&cru HCLK_RKVDEC>;
+ 		clock-names = "aclk", "iface";
+ 		#iommu-cells = <0>;
+-		status = "disabled";
++		power-domains = <&power RK3228_PD_RKVDEC>;
+ 	};
+ 
+ 	vop: vop@20050000 {
+@@ -871,7 +871,7 @@ iep_mmu: iommu@20070800 {
+ 		clocks = <&cru ACLK_IEP>, <&cru HCLK_IEP>;
+ 		clock-names = "aclk", "iface";
+ 		#iommu-cells = <0>;
+-		status = "disabled";
++		power-domains = <&power RK3228_PD_VIO>;
+ 	};
+ 
+ 	hdmi: hdmi@200a0000 {
