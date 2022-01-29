@@ -1,0 +1,37 @@
+################################################################################
+# setup device defaults
+################################################################################
+
+  # The TARGET_CPU variable controls which processor should be targeted for
+  # generated code.
+    case $TARGET_ARCH in
+      arm)
+        TARGET_FLOAT="hard"
+        TARGET_CPU="cortex-a7"
+        TARGET_FPU="neon-vfpv4"
+        TARGET_FEATURES="32bit"
+        ;;
+    esac
+
+  # Kernel target
+    KERNEL_TARGET="zImage"
+
+    UBOOT_TARGET=""
+
+  # SquashFS compression method (gzip / lzo / xz / zstd)
+    SQUASHFS_COMPRESSION="lzo"
+
+  # Additional kernel make parameters (for example to specify the u-boot loadaddress)
+    KERNEL_MAKE_EXTRACMD=" rk3228a-box.dtb rk3229-box.dtb"
+
+  # Mali GPU family
+    MALI_FAMILY="400"
+    GRAPHIC_DRIVERS="lima"
+
+  # kernel serial console
+    EXTRA_CMDLINE="console=uart8250,mmio32,0x11030000 console=tty0 video=TV-1:d"
+
+  # set the addon project
+    ADDON_PROJECT="ARMv7"
+
+    ADDITIONAL_PACKAGES="$ADDITIONAL_PACKAGES rockchip-firmware"
