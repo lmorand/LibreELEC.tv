@@ -314,7 +314,7 @@ index 000000000000..b63e61cda257
 +	leds {
 +		compatible = "gpio-leds";
 +
-+		led_green {
++		led_blue {
 +			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_HIGH>;
 +			default-state = "on";
 +		};
@@ -394,37 +394,37 @@ index 000000000000..c1c7613bab11
 +
 +		opp-408000000 {
 +			opp-hz = /bits/ 64 <408000000>;
-+			opp-microvolt = <950000 950000 1400000>;
++			opp-microvolt = <950000 950000 1375000>;
 +			clock-latency-ns = <40000>;
 +			opp-suspend;
 +		};
 +		opp-600000000 {
 +			opp-hz = /bits/ 64 <600000000>;
-+			opp-microvolt = <975000 975000 1400000>;
++			opp-microvolt = <975000 975000 1375000>;
 +		};
 +		opp-816000000 {
 +			opp-hz = /bits/ 64 <816000000>;
-+			opp-microvolt = <1000000 1000000 1400000>;
++			opp-microvolt = <1000000 1000000 1375000>;
 +		};
 +		opp-1008000000 {
 +			opp-hz = /bits/ 64 <1008000000>;
-+			opp-microvolt = <1175000 1175000 1400000>;
++			opp-microvolt = <1075000 1075000 1375000>;
 +		};
 +		opp-1200000000 {
 +			opp-hz = /bits/ 64 <1200000000>;
-+			opp-microvolt = <1275000 1275000 1400000>;
++			opp-microvolt = <1175000 1175000 1375000>;
 +		};
 +		opp-1296000000 {
 +			opp-hz = /bits/ 64 <1296000000>;
-+			opp-microvolt = <1325000 1325000 1400000>;
++			opp-microvolt = <1225000 1225000 1375000>;
 +		};
 +		opp-1392000000 {
 +			opp-hz = /bits/ 64 <1392000000>;
-+			opp-microvolt = <1350000 1350000 1400000>;
++			opp-microvolt = <1250000 1250000 1375000>;
 +		};
 +		/*opp-1464000000 {
 +			opp-hz = /bits/ 64 <1464000000>;
-+			opp-microvolt = <1400000 1400000 1400000>;
++			opp-microvolt = <1375000 1375000 1375000>;
 +		};*/
 +	};
 +};
