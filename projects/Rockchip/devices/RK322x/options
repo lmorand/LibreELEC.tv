@@ -22,7 +22,7 @@
     SQUASHFS_COMPRESSION="lzo"
 
   # Additional kernel make parameters (for example to specify the u-boot loadaddress)
-    KERNEL_MAKE_EXTRACMD=" rk3228a-box.dtb rk3229-box.dtb"
+    KERNEL_MAKE_EXTRACMD=" rk3229-box.dtb rk3229-box-ovclk.dtb "
 
   # Mali GPU family
     MALI_FAMILY="400"
