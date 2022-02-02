@@ -260,6 +260,15 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box-dcdc.dtsi linux-new/arch/arm/boot/
 +
 +/ {
 +
++	vcc_sys: vcc-sys-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc_sys";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++	};
++
 +	vcc_host: vcc-host-regulator {
 +		compatible = "regulator-fixed";
 +		enable-active-high;
@@ -314,15 +323,6 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box-dcdc.dtsi linux-new/arch/arm/boot/
 +		regulator-always-on;
 +		regulator-boot-on;
 +		vin-supply = <&vccio_1v8>;
-+	};
-+
-+	vcc_sys: vcc-sys-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_sys";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
 +	};
 +
 +	vdd_arm: vdd-arm-regulator {
