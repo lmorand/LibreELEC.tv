@@ -111,6 +111,7 @@ post_makeinstall_target() {
 # multi-table for amlogic devices
 meson-ir	rc-empty	libreelec_multi.toml
 * * x96max.toml
+* * mxq4k.toml
 EOF
 
   fi
