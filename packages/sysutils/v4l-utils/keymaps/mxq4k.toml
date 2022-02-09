@@ -3,6 +3,7 @@ name = "mxq4k remote"
 protocol = "nec"
 variant = "necx"
 [protocols.scancodes]
+0xcc1d00 = "KEY_POWER"
 0xcc1d01 = "KEY_VIDEO"
 0xcc1d05 = "KEY_TUNER"
 0xcc1d0a = "KEY_NEXT"
