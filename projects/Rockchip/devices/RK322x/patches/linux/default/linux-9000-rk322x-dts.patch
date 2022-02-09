@@ -1,6 +1,6 @@
 diff -ruPN linux/arch/arm/boot/dts/Makefile linux-new/arch/arm/boot/dts/Makefile
 --- linux/arch/arm/boot/dts/Makefile	2021-10-27 09:56:57.000000000 +0200
-+++ linux-new/arch/arm/boot/dts/Makefile	2022-01-31 19:06:07.568755364 +0100
++++ linux-new/arch/arm/boot/dts/Makefile	2022-02-07 13:13:34.811499676 +0100
 @@ -982,6 +982,8 @@
  	rk3188-px3-evb.dtb \
  	rk3188-radxarock.dtb \
@@ -12,8 +12,8 @@ diff -ruPN linux/arch/arm/boot/dts/Makefile linux-new/arch/arm/boot/dts/Makefile
  	rk3288-evb-act8846.dtb \
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-ovclk.dts linux-new/arch/arm/boot/dts/rk3229-box-ovclk.dts
 --- linux/arch/arm/boot/dts/rk3229-box-ovclk.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-box-ovclk.dts	2022-01-31 19:05:09.845752947 +0100
-@@ -0,0 +1,52 @@
++++ linux-new/arch/arm/boot/dts/rk3229-box-ovclk.dts	2022-02-07 16:29:50.674269958 +0100
+@@ -0,0 +1,56 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -43,6 +43,10 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-ovclk.dts linux-new/arch/arm/boot/
 +	status = "okay";
 +};
 +
++&nfc {
++	status = "disabled";
++};
++
 +&ir_receiver {
 +	status = "okay";
 +};
@@ -68,8 +72,8 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-ovclk.dts linux-new/arch/arm/boot/
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box.dts linux-new/arch/arm/boot/dts/rk3229-box.dts
 --- linux/arch/arm/boot/dts/rk3229-box.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-box.dts	2022-01-31 18:59:11.789737958 +0100
-@@ -0,0 +1,51 @@
++++ linux-new/arch/arm/boot/dts/rk3229-box.dts	2022-02-07 16:26:22.461261242 +0100
+@@ -0,0 +1,55 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -98,6 +102,10 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box.dts linux-new/arch/arm/boot/dts/rk
 +	status = "okay";
 +};
 +
++&nfc {
++	status = "disabled";
++};
++
 +&ir_receiver {
 +	status = "okay";
 +};
@@ -121,26 +129,9 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box.dts linux-new/arch/arm/boot/dts/rk
 +&usb_otg {
 +	dr_mode = "host";
 +};
-diff -ruPN linux/arch/arm/boot/dts/rk3229-box.dtsi linux-new/arch/arm/boot/dts/rk3229-box.dtsi
---- linux/arch/arm/boot/dts/rk3229-box.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-box.dtsi	2022-01-31 18:52:58.119722314 +0100
-@@ -0,0 +1,13 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+
-+/dts-v1/;
-+
-+#include "rk322x-box-dcdc.dtsi"
-+#include "rk3229-cpu-opp.dtsi"
-+
-+/ {
-+
-+	model = "Rockchip RK3229 Box";
-+	compatible = "rockchip,rk3229-box", "rockchip,rk3229";
-+
-+};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi linux-new/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi
 --- linux/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi	2022-01-31 19:00:57.793742395 +0100
++++ linux-new/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi	2022-02-07 13:13:34.811499676 +0100
 @@ -0,0 +1,50 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
@@ -180,21 +171,21 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi linux-new/arch/arm/
 +		};
 +		opp-1296000000 {
 +			opp-hz = /bits/ 64 <1296000000>;
-+			opp-microvolt = <1225000 1225000 1375000>;
++			opp-microvolt = <1250000 1250000 1375000>;
 +		};
 +		opp-1392000000 {
 +			opp-hz = /bits/ 64 <1392000000>;
-+			opp-microvolt = <1275000 1275000 1375000>;
-+		};
-+		opp-1492000000 {
-+			opp-hz = /bits/ 64 <1492000000>;
 +			opp-microvolt = <1325000 1325000 1375000>;
++		};
++		opp-1464000000 {
++			opp-hz = /bits/ 64 <1464000000>;
++			opp-microvolt = <1375000 1375000 1375000>;
 +		};
 +	};
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp.dtsi linux-new/arch/arm/boot/dts/rk3229-cpu-opp.dtsi
 --- linux/arch/arm/boot/dts/rk3229-cpu-opp.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-cpu-opp.dtsi	2022-01-31 18:52:58.119722314 +0100
++++ linux-new/arch/arm/boot/dts/rk3229-cpu-opp.dtsi	2022-02-07 13:13:34.811499676 +0100
 @@ -0,0 +1,50 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
@@ -234,11 +225,11 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp.dtsi linux-new/arch/arm/boot/d
 +		};
 +		opp-1296000000 {
 +			opp-hz = /bits/ 64 <1296000000>;
-+			opp-microvolt = <1225000 1225000 1375000>;
++			opp-microvolt = <1250000 1250000 1375000>;
 +		};
 +		opp-1392000000 {
 +			opp-hz = /bits/ 64 <1392000000>;
-+			opp-microvolt = <1250000 1250000 1375000>;
++			opp-microvolt = <1325000 1325000 1375000>;
 +		};
 +		/*opp-1464000000 {
 +			opp-hz = /bits/ 64 <1464000000>;
@@ -248,7 +239,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp.dtsi linux-new/arch/arm/boot/d
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk322x-box-dcdc.dtsi linux-new/arch/arm/boot/dts/rk322x-box-dcdc.dtsi
 --- linux/arch/arm/boot/dts/rk322x-box-dcdc.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk322x-box-dcdc.dtsi	2022-01-31 18:52:58.119722314 +0100
++++ linux-new/arch/arm/boot/dts/rk322x-box-dcdc.dtsi	2022-02-07 13:13:34.811499676 +0100
 @@ -0,0 +1,163 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
@@ -415,8 +406,8 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box-dcdc.dtsi linux-new/arch/arm/boot/
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-new/arch/arm/boot/dts/rk322x-box.dtsi
 --- linux/arch/arm/boot/dts/rk322x-box.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk322x-box.dtsi	2022-01-31 18:52:58.120722315 +0100
-@@ -0,0 +1,282 @@
++++ linux-new/arch/arm/boot/dts/rk322x-box.dtsi	2022-02-07 13:29:54.772540701 +0100
+@@ -0,0 +1,304 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -476,6 +467,24 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-new/arch/arm/boot/dts/r
 +
 +	timer {
 +		/delete-property/ arm,cpu-registers-not-fw-configured;
++	};
++
++	spdif_out: spdif-out {
++		status = "okay";
++		compatible = "linux,spdif-dit";
++		#sound-dai-cells = <0>;
++	};
++
++	spdif-sound {
++		status = "okay";
++		compatible = "simple-audio-card";
++		simple-audio-card,name = "SPDIF";
++		simple-audio-card,cpu {
++			sound-dai = <&spdif>;
++		};
++		simple-audio-card,codec {
++			sound-dai = <&spdif_out>;
++		};
 +	};
 +};
 +
@@ -683,6 +692,10 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-new/arch/arm/boot/dts/r
 +};
 +
 +&usb_otg {
++	status = "okay";
++};
++
++&spdif {
 +	status = "okay";
 +};
 +
