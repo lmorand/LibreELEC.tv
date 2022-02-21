@@ -99,26 +99,6 @@ index 88e33eb11..22da2e3cd 100644
  	amba: bus {
  		compatible = "simple-bus";
  		#address-cells = <1>;
-@@ -673,17 +736,17 @@ gpu_opp_table: opp-table2 {
- 
- 		opp-200000000 {
- 			opp-hz = /bits/ 64 <200000000>;
--			opp-microvolt = <1050000>;
-+			opp-microvolt = <1050000 1000000 1200000>;
- 		};
- 
- 		opp-300000000 {
- 			opp-hz = /bits/ 64 <300000000>;
--			opp-microvolt = <1050000>;
-+			opp-microvolt = <1050000 1000000 1200000>;
- 		};
- 
- 		opp-500000000 {
- 			opp-hz = /bits/ 64 <500000000>;
--			opp-microvolt = <1150000>;
-+			opp-microvolt = <1150000 1000000 1200000>;
- 		};
- 	};
  
 diff --git a/drivers/devfreq/Kconfig b/drivers/devfreq/Kconfig
 index 37dc40d1f..5f864a855 100644

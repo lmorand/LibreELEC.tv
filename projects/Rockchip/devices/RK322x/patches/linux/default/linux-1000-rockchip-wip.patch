@@ -652,19 +652,19 @@ index a5f1d1a004d4..dedf84af9e51 100644
 +	gpu_opp_table: opp-table2 {
 +		compatible = "operating-points-v2";
 +
-+		opp-200000000 {
-+			opp-hz = /bits/ 64 <200000000>;
-+			opp-microvolt = <1050000>;
-+		};
-+
 +		opp-300000000 {
 +			opp-hz = /bits/ 64 <300000000>;
 +			opp-microvolt = <1050000>;
 +		};
 +
++		opp-400000000 {
++			opp-hz = /bits/ 64 <400000000>;
++			opp-microvolt = <1050000>;
++		};
++
 +		opp-500000000 {
 +			opp-hz = /bits/ 64 <500000000>;
-+			opp-microvolt = <1150000>;
++			opp-microvolt = <1100000>;
 +		};
  	};
  
