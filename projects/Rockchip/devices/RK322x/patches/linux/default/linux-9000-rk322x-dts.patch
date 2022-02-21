@@ -152,13 +152,13 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi linux-new/arch/arm/
 +			opp-microvolt = <950000 950000 1375000>;
 +			clock-latency-ns = <40000>;
 +			opp-suspend;
-+			status = "disabled";
++			status = "okay";
 +		};
 +		opp-600000000 {
 +			opp-hz = /bits/ 64 <600000000>;
 +			opp-microvolt = <975000 975000 1375000>;
 +			opp-suspend;
-+			status = "disabled";
++			status = "okay";
 +		};
 +		opp-816000000 {
 +			opp-hz = /bits/ 64 <816000000>;
@@ -173,17 +173,17 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi linux-new/arch/arm/
 +			opp-hz = /bits/ 64 <1200000000>;
 +			opp-microvolt = <1175000 1175000 1375000>;
 +		};
-+		opp-1296000000 {
-+			opp-hz = /bits/ 64 <1296000000>;
++		opp-1300000000 {
++			opp-hz = /bits/ 64 <1300000000>;
 +			opp-microvolt = <1225000 1225000 1375000>;
 +		};
-+		opp-1392000000 {
-+			opp-hz = /bits/ 64 <1392000000>;
-+			opp-microvolt = <1300000 1300000 1375000>;
++		opp-1400000000 {
++			opp-hz = /bits/ 64 <1400000000>;
++			opp-microvolt = <1275000 1275000 1375000>;
 +		};
-+		opp-1464000000 {
-+			opp-hz = /bits/ 64 <1464000000>;
-+			opp-microvolt = <1350000 1350000 1375000>;
++		opp-1500000000 {
++			opp-hz = /bits/ 64 <1500000000>;
++			opp-microvolt = <1325000 1325000 1375000>;
 +		};
 +	};
 +};
@@ -210,13 +210,13 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp.dtsi linux-new/arch/arm/boot/d
 +			opp-microvolt = <950000 950000 1375000>;
 +			clock-latency-ns = <40000>;
 +			opp-suspend;
-+			status = "disabled";
++			status = "okay";
 +		};
 +		opp-600000000 {
 +			opp-hz = /bits/ 64 <600000000>;
 +			opp-microvolt = <975000 975000 1375000>;
 +			opp-suspend;
-+			status = "disabled";
++			status = "okay";
 +		};
 +		opp-816000000 {
 +			opp-hz = /bits/ 64 <816000000>;
@@ -231,13 +231,13 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp.dtsi linux-new/arch/arm/boot/d
 +			opp-hz = /bits/ 64 <1200000000>;
 +			opp-microvolt = <1175000 1175000 1375000>;
 +		};
-+		opp-1296000000 {
-+			opp-hz = /bits/ 64 <1296000000>;
-+			opp-microvolt = <1250000 1250000 1375000>;
++		opp-1300000000 {
++			opp-hz = /bits/ 64 <1300000000>;
++			opp-microvolt = <1225000 1225000 1375000>;
 +		};
-+		opp-1392000000 {
-+			opp-hz = /bits/ 64 <1392000000>;
-+			opp-microvolt = <1300000 1300000 1375000>;
++		opp-1400000000 {
++			opp-hz = /bits/ 64 <1400000000>;
++			opp-microvolt = <1275000 1275000 1375000>;
 +		};
 +    };
 +};
