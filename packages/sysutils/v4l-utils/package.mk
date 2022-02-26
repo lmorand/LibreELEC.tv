@@ -112,6 +112,7 @@ post_makeinstall_target() {
 meson-ir	rc-empty	libreelec_multi.toml
 gpio_ir_recv * x96max.toml
 gpio_ir_recv * mxq4k.toml
+gpio_ir_recv * mxq4k2.toml
 EOF
 
   fi
