@@ -377,8 +377,7 @@ Signed-off-by: Alex Bee <knaerzche@gmail.com>
 ---
  arch/arm64/boot/dts/rockchip/rk3328-roc-cc.dts | 4 ++++
  arch/arm64/boot/dts/rockchip/rk3328-rock64.dts | 4 ++++
- arch/arm64/boot/dts/rockchip/rk3328.dtsi       | 2 +-
- 3 files changed, 9 insertions(+), 1 deletion(-)
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3328-roc-cc.dts b/arch/arm64/boot/dts/rockchip/rk3328-roc-cc.dts
 index 7d9481962f51..b6542d3fb311 100644
@@ -410,19 +409,6 @@ index ecf3fcf24ff3..49582172d49b 100644
  &hdmi {
  	status = "okay";
  };
-diff --git a/arch/arm64/boot/dts/rockchip/rk3328.dtsi b/arch/arm64/boot/dts/rockchip/rk3328.dtsi
-index 0c6e35ef77b9..1cfd35372c4a 100644
---- a/arch/arm64/boot/dts/rockchip/rk3328.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3328.dtsi
-@@ -619,7 +619,7 @@ saradc: adc@ff280000 {
- 
- 	gpu: gpu@ff300000 {
- 		compatible = "rockchip,rk3328-mali", "arm,mali-450";
--		reg = <0x0 0xff300000 0x0 0x40000>;
-+		reg = <0x0 0xff300000 0x0 0x30000>;
- 		interrupts = <GIC_SPI 90 IRQ_TYPE_LEVEL_HIGH>,
- 			     <GIC_SPI 87 IRQ_TYPE_LEVEL_HIGH>,
- 			     <GIC_SPI 93 IRQ_TYPE_LEVEL_HIGH>,
 
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Alex Bee <knaerzche@gmail.com>
