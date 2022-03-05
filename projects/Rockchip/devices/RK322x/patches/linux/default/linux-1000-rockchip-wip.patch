@@ -654,17 +654,17 @@ index a5f1d1a004d4..dedf84af9e51 100644
 +
 +		opp-300000000 {
 +			opp-hz = /bits/ 64 <300000000>;
-+			opp-microvolt = <1050000>;
++			opp-microvolt = <1100000 1000000 1200000>;
 +		};
 +
 +		opp-400000000 {
 +			opp-hz = /bits/ 64 <400000000>;
-+			opp-microvolt = <1050000>;
++			opp-microvolt = <1100000 1000000 1200000>;
 +		};
 +
 +		opp-500000000 {
 +			opp-hz = /bits/ 64 <500000000>;
-+			opp-microvolt = <1100000>;
++			opp-microvolt = <1100000 1000000 1200000>;
 +		};
  	};
  

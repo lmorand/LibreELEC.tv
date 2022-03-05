@@ -66,7 +66,7 @@ index 88e33eb11..22da2e3cd 100644
 +		};
 +		opp-786000000 {
 +			opp-hz = /bits/ 64 <786000000>;
-+			opp-microvolt = <1150000 1000000 1200000>;
++			opp-microvolt = <1100000 1000000 1200000>;
 +			status = "disabled";
 +		};
 +	};
