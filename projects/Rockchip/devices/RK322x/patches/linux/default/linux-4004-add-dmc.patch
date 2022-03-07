@@ -1535,7 +1535,7 @@ index 000000000..3a34cb2b5
 +	devfreq = devm_devfreq_add_device(dev, &rk3228_devfreq_profile,
 +					  DEVFREQ_GOV_SIMPLE_ONDEMAND, &rdev->ondemand_data);
 +	if (IS_ERR(devfreq)) {
-+		dev_err(dev, "Couldn't initialize GPU devfreq\n");
++		dev_err(dev, "Couldn't initialize DMC devfreq\n");
 +		ret = PTR_ERR(devfreq);
 +		goto err_fini;
 +	}
