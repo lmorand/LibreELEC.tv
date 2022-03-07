@@ -1,18 +1,149 @@
 diff -ruPN linux/arch/arm/boot/dts/Makefile linux-new/arch/arm/boot/dts/Makefile
 --- linux/arch/arm/boot/dts/Makefile	2021-10-27 09:56:57.000000000 +0200
-+++ linux-new/arch/arm/boot/dts/Makefile	2022-02-28 09:30:42.860019985 +0100
-@@ -982,6 +982,8 @@
++++ linux-new/arch/arm/boot/dts/Makefile	2022-03-07 12:11:21.004149360 +0100
+@@ -982,6 +982,12 @@
  	rk3188-px3-evb.dtb \
  	rk3188-radxarock.dtb \
  	rk3228-evb.dtb \
 +	rk3229-box.dtb \
 +	rk3229-box-ovclk.dtb \
++	rk3229-box-mxq4kpro-ovclk.dtb \
++	rk3229-box-mxq4kpro.dtb \
++	rk3229-box-v88mars-ovclk.dtb \
++	rk3229-box-v88mars.dtb \
  	rk3229-evb.dtb \
  	rk3229-xms6.dtb \
  	rk3288-evb-act8846.dtb \
+diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts
+--- linux/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts	1970-01-01 01:00:00.000000000 +0100
++++ linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts	2022-03-07 11:33:34.566054479 +0100
+@@ -0,0 +1,60 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++
++/dts-v1/;
++
++#include "rk322x-box-dcdc.dtsi"
++#include "rk3229-cpu-opp-ovclk.dtsi"
++
++/ {
++	model = "Rockchip RK3229 Box";
++
++	leds {
++		compatible = "gpio-leds";
++
++		led_blue {
++			gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_LOW>;
++			default-state = "on";
++		};
++
++		led_red {
++			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_LOW>;
++			default-state = "off";
++		};
++	};
++};
++
++&dmc {
++	status = "okay";
++};
++
++&emmc {
++	status = "okay";
++};
++
++&nandc {
++	status = "okay";
++};
++
++&ir_receiver {
++	status = "okay";
++};
++
++&power_key {
++	status = "okay";
++};
++
++&sdio {
++	status = "okay";
++};
++
++&sdmmc {
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&usb_otg {
++	dr_mode = "host";
++};
+diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts
+--- linux/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts	1970-01-01 01:00:00.000000000 +0100
++++ linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts	2022-03-07 11:33:28.570054228 +0100
+@@ -0,0 +1,59 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++
++/dts-v1/;
++#include "rk322x-box-dcdc.dtsi"
++#include "rk3229-cpu-opp.dtsi"
++
++/ {
++	model = "Rockchip RK3229 Box";
++
++	leds {
++		compatible = "gpio-leds";
++
++		led_blue {
++			gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_LOW>;
++			default-state = "on";
++		};
++
++		led_red {
++			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_LOW>;
++			default-state = "off";
++		};
++	};
++};
++
++&dmc {
++	status = "okay";
++};
++
++&emmc {
++	status = "okay";
++};
++
++&nandc {
++	status = "okay";
++};
++
++&ir_receiver {
++	status = "okay";
++};
++
++&power_key {
++	status = "okay";
++};
++
++&sdio {
++	status = "okay";
++};
++
++&sdmmc {
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&usb_otg {
++	dr_mode = "host";
++};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-ovclk.dts linux-new/arch/arm/boot/dts/rk3229-box-ovclk.dts
 --- linux/arch/arm/boot/dts/rk3229-box-ovclk.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-box-ovclk.dts	2022-02-28 09:41:28.819047027 +0100
++++ linux-new/arch/arm/boot/dts/rk3229-box-ovclk.dts	2022-03-07 11:29:34.001044408 +0100
 @@ -0,0 +1,56 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
@@ -70,9 +201,131 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-ovclk.dts linux-new/arch/arm/boot/
 +&usb_otg {
 +	dr_mode = "host";
 +};
+diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts linux-new/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts
+--- linux/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts	1970-01-01 01:00:00.000000000 +0100
++++ linux-new/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts	2022-03-07 11:39:59.384070588 +0100
+@@ -0,0 +1,55 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++
++/dts-v1/;
++#include "rk322x-box-dcdc.dtsi"
++#include "rk3229-cpu-opp-ovclk.dtsi"
++
++/ {
++	model = "Rockchip RK3229 Box";
++
++	leds {
++		compatible = "gpio-leds";
++
++		led_blue {
++			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_HIGH>;
++			default-state = "on";
++		};
++
++		led_red {
++			gpios = <&gpio0 RK_PA1 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++	};
++};
++
++&emmc {
++	status = "okay";
++};
++
++&nandc {
++	status = "okay";
++};
++
++&ir_receiver {
++	status = "okay";
++};
++
++&power_key {
++	status = "okay";
++};
++
++&sdio {
++	status = "okay";
++};
++
++&sdmmc {
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&usb_otg {
++	dr_mode = "host";
++};
+diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v88mars.dts linux-new/arch/arm/boot/dts/rk3229-box-v88mars.dts
+--- linux/arch/arm/boot/dts/rk3229-box-v88mars.dts	1970-01-01 01:00:00.000000000 +0100
++++ linux-new/arch/arm/boot/dts/rk3229-box-v88mars.dts	2022-03-07 11:39:24.277069119 +0100
+@@ -0,0 +1,59 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++
++/dts-v1/;
++#include "rk322x-box-dcdc.dtsi"
++#include "rk3229-cpu-opp.dtsi"
++
++/ {
++	model = "Rockchip RK3229 Box";
++
++	leds {
++		compatible = "gpio-leds";
++
++		led_blue {
++			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_HIGH>;
++			default-state = "on";
++		};
++
++		led_red {
++			gpios = <&gpio0 RK_PA1 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++	};
++};
++
++&dmc {
++	status = "okay";
++};
++
++&emmc {
++	status = "okay";
++};
++
++&nandc {
++	status = "okay";
++};
++
++&ir_receiver {
++	status = "okay";
++};
++
++&power_key {
++	status = "okay";
++};
++
++&sdio {
++	status = "okay";
++};
++
++&sdmmc {
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&usb_otg {
++	dr_mode = "host";
++};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box.dts linux-new/arch/arm/boot/dts/rk3229-box.dts
 --- linux/arch/arm/boot/dts/rk3229-box.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-box.dts	2022-02-28 09:41:17.244046543 +0100
++++ linux-new/arch/arm/boot/dts/rk3229-box.dts	2022-03-07 11:29:34.002044408 +0100
 @@ -0,0 +1,55 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
@@ -131,8 +384,8 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box.dts linux-new/arch/arm/boot/dts/rk
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi linux-new/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi
 --- linux/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi	2022-02-28 09:30:42.860019985 +0100
-@@ -0,0 +1,54 @@
++++ linux-new/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi	2022-03-07 11:29:34.002044408 +0100
+@@ -0,0 +1,74 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
 + * Copyright (c) 2017 Fuzhou Rockchip Electronics Co., Ltd
@@ -186,10 +439,30 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi linux-new/arch/arm/
 +			opp-microvolt = <1325000 1325000 1375000>;
 +		};
 +	};
++	/delete-node/ opp-table2;
++
++	gpu_opp_table: opp-table2 {
++		compatible = "operating-points-v2";
++
++		opp-300000000 {
++			opp-hz = /bits/ 64 <300000000>;
++			opp-microvolt = <1100000 1000000 1200000>;
++		};
++
++		opp-400000000 {
++			opp-hz = /bits/ 64 <400000000>;
++			opp-microvolt = <1100000 1000000 1200000>;
++		};
++
++		opp-530000000 {
++			opp-hz = /bits/ 64 <530000000>;
++			opp-microvolt = <1100000 1000000 1200000>;
++		};
++   };
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp.dtsi linux-new/arch/arm/boot/dts/rk3229-cpu-opp.dtsi
 --- linux/arch/arm/boot/dts/rk3229-cpu-opp.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-cpu-opp.dtsi	2022-02-28 09:30:42.860019985 +0100
++++ linux-new/arch/arm/boot/dts/rk3229-cpu-opp.dtsi	2022-03-07 11:29:34.002044408 +0100
 @@ -0,0 +1,50 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
@@ -243,7 +516,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp.dtsi linux-new/arch/arm/boot/d
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk322x-box-dcdc.dtsi linux-new/arch/arm/boot/dts/rk322x-box-dcdc.dtsi
 --- linux/arch/arm/boot/dts/rk322x-box-dcdc.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk322x-box-dcdc.dtsi	2022-02-28 09:30:42.861019985 +0100
++++ linux-new/arch/arm/boot/dts/rk322x-box-dcdc.dtsi	2022-03-07 11:29:34.002044408 +0100
 @@ -0,0 +1,163 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
@@ -410,8 +683,8 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box-dcdc.dtsi linux-new/arch/arm/boot/
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-new/arch/arm/boot/dts/rk322x-box.dtsi
 --- linux/arch/arm/boot/dts/rk322x-box.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk322x-box.dtsi	2022-02-28 10:31:50.355173520 +0100
-@@ -0,0 +1,322 @@
++++ linux-new/arch/arm/boot/dts/rk322x-box.dtsi	2022-03-07 11:34:11.959056044 +0100
+@@ -0,0 +1,321 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -491,19 +764,18 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-new/arch/arm/boot/dts/r
 +		};
 +	};
 +
-+    nandc: nandc@30030000 {
-+        compatible = "rockchip,rk-nandc";
-+        reg = <0x30030000 0x4000>;
-+        interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>;
-+        nandc_id = <0>;
-+        clocks = <&cru SCLK_NANDC>, <&cru HCLK_NANDC>;
-+        clock-names = "clk_nandc", "hclk_nandc";
-+        status = "disabled";
++	nandc: nandc@30030000 {
++		compatible = "rockchip,rk-nandc";
++		reg = <0x30030000 0x4000>;
++		interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>;
++		nandc_id = <0>;
++		clocks = <&cru SCLK_NANDC>, <&cru HCLK_NANDC>;
++		clock-names = "clk_nandc", "hclk_nandc";
++		status = "disabled";
 +    };
 +};
 +
 +&dmc {
-+    status = "okay";
 +    logic-supply = <&vdd_log>;
 +};
 +
