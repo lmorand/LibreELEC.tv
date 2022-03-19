@@ -74,8 +74,8 @@ index 88e33eb11..22da2e3cd 100644
 +	dram_timing: dram-timing {
 +		compatible = "rockchip,dram-timing";
 +		dram_spd_bin = <DDR3_DEFAULT>;
-+		sr_idle = <0x08>;
-+		pd_idle = <0x10>;
++		sr_idle = <0x18>;
++		pd_idle = <0x20>;
 +		dram_dll_disb_freq = <300>;
 +		phy_dll_disb_freq = <400>;
 +		dram_odt_disb_freq = <333>;
