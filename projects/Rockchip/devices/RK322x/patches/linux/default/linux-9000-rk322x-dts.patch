@@ -14,6 +14,75 @@ diff -ruPN linux/arch/arm/boot/dts/Makefile linux-new/arch/arm/boot/dts/Makefile
  	rk3229-evb.dtb \
  	rk3229-xms6.dtb \
  	rk3288-evb-act8846.dtb \
+diff -ruPN linux/arch/arm/boot/dts/rk3229-box-hk1mini.dts linux-new/arch/arm/boot/dts/rk3229-box-hk1mini.dts
+--- linux/arch/arm/boot/dts/rk3229-box-hk1mini.dts	1970-01-01 01:00:00.000000000 +0100
++++ linux-new/arch/arm/boot/dts/rk3229-box-hk1mini.dts	2022-03-19 13:52:26.850837095 +0100
+@@ -0,0 +1,65 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++
++/dts-v1/;
++#include "rk322x-box-dcdc.dtsi"
++#include "rk3229-cpu-opp-ovclk.dtsi"
++
++/ {
++	model = "Rockchip RK3229 Box";
++
++	leds {
++		compatible = "gpio-leds";
++
++		led_blue {
++			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_LOW>;
++			default-state = "on";
++		};
++
++		led_red {
++			gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_LOW>;
++			default-state = "off";
++		};
++	};
++};
++
++&dmc {
++	status = "okay";
++};
++
++&dmc_opp_table {
++	opp-786000000 {
++	    status="okay";
++	};
++};
++
++&emmc {
++	status = "okay";
++};
++
++&nandc {
++	status = "okay";
++};
++
++&ir_receiver {
++	status = "okay";
++};
++
++&power_key {
++	status = "okay";
++};
++
++&sdio {
++	status = "okay";
++};
++
++&sdmmc {
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&usb_otg {
++	dr_mode = "host";
++};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts
 --- linux/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts	1970-01-01 01:00:00.000000000 +0100
 +++ linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts	2022-03-07 11:33:34.566054479 +0100
@@ -80,8 +149,8 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts linux-new/arch/
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts
 --- linux/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts	2022-03-07 11:33:28.570054228 +0100
-@@ -0,0 +1,59 @@
++++ linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts	2022-03-19 12:17:54.523599630 +0100
+@@ -0,0 +1,65 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -108,6 +177,12 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts linux-new/arch/arm/bo
 +
 +&dmc {
 +	status = "okay";
++};
++
++&dmc_opp_table {
++        opp-786000000 {
++            status="okay";
++        };
 +};
 +
 +&emmc {
@@ -1006,3 +1081,15 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-new/arch/arm/boot/dts/r
 +&wdt {
 +	status = "okay";
 +};
+diff -ruPN linux/arch/arm/boot/dts/rk322x.dtsi linux-new/arch/arm/boot/dts/rk322x.dtsi
+--- linux/arch/arm/boot/dts/rk322x.dtsi	2022-03-13 16:23:25.334634123 +0100
++++ linux-new/arch/arm/boot/dts/rk322x.dtsi	2022-03-14 09:09:31.918058019 +0100
+@@ -1293,7 +1293,7 @@
+ 			};
+ 
+ 			hdmi_cec: hdmi-cec {
+-				rockchip,pins = <0 RK_PC4 1 &pcfg_pull_none>;
++				rockchip,pins = <0 RK_PC4 1 &pcfg_pull_up>;
+ 			};
+ 		};
+ 
