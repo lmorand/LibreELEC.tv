@@ -16,13 +16,13 @@ diff -ruPN linux/arch/arm/boot/dts/Makefile linux-new/arch/arm/boot/dts/Makefile
  	rk3288-evb-act8846.dtb \
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-hk1mini.dts linux-new/arch/arm/boot/dts/rk3229-box-hk1mini.dts
 --- linux/arch/arm/boot/dts/rk3229-box-hk1mini.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-box-hk1mini.dts	2022-03-19 19:49:11.636733178 +0100
-@@ -0,0 +1,69 @@
++++ linux-new/arch/arm/boot/dts/rk3229-box-hk1mini.dts	2022-03-20 11:52:43.227153384 +0100
+@@ -0,0 +1,59 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
 +#include "rk322x-box-dcdc.dtsi"
-+#include "rk3229-cpu-opp-ovclk.dtsi"
++#include "rk3229-cpu-opp.dtsi"
 +
 +/ {
 +	model = "Rockchip RK3229 Box";
@@ -44,16 +44,6 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-hk1mini.dts linux-new/arch/arm/boo
 +
 +&dmc {
 +	status = "okay";
-+};
-+
-+&dmc_opp_table {
-+	opp-786000000 {
-+	    status="okay";
-+	};
-+	opp-800000000 {
-+			opp-hz = /bits/ 64 <800000000>;
-+			opp-microvolt = <1100000 1000000 1200000>;
-+	};
 +};
 +
 +&emmc {
@@ -153,8 +143,8 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts linux-new/arch/
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts
 --- linux/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts	2022-03-19 19:49:07.344732998 +0100
-@@ -0,0 +1,69 @@
++++ linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts	2022-03-20 12:53:33.421306194 +0100
+@@ -0,0 +1,66 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -179,18 +169,15 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts linux-new/arch/arm/bo
 +	};
 +};
 +
-+&dmc {
-+	status = "okay";
++&dram_timing {
++	ddr3_drv = <DDR3_DS_34ohm>;
++	phy_ddr3_clk_drv = <PHY_DDR3_RON_RTT_22ohm>;
++	phy_ddr3_cmd_drv = <PHY_DDR3_RON_RTT_22ohm>;
++	phy_ddr3_dqs_drv = <PHY_DDR3_RON_RTT_22ohm>;
 +};
 +
-+&dmc_opp_table {
-+	opp-786000000 {
-+		status="okay";
-+	};
-+	opp-800000000 {
-+		opp-hz = /bits/ 64 <800000000>;
-+		opp-microvolt = <1100000 1000000 1200000>;
-+	};
++&dmc {
++	status = "okay";
 +};
 +
 +&emmc {
@@ -527,13 +514,13 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi linux-new/arch/arm/
 +	gpu_opp_table: opp-table2 {
 +		compatible = "operating-points-v2";
 +
-+		opp-300000000 {
-+			opp-hz = /bits/ 64 <300000000>;
++		opp-200000000 {
++			opp-hz = /bits/ 64 <200000000>;
 +			opp-microvolt = <1100000 1000000 1200000>;
 +		};
 +
-+		opp-400000000 {
-+			opp-hz = /bits/ 64 <400000000>;
++		opp-300000000 {
++			opp-hz = /bits/ 64 <300000000>;
 +			opp-microvolt = <1100000 1000000 1200000>;
 +		};
 +

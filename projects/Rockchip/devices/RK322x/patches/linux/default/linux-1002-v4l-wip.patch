@@ -111,9 +111,9 @@ index b233baeb20ef..de5727e0bc94 100644
 +		clocks = <&cru ACLK_RKVDEC>, <&cru HCLK_RKVDEC>,
 +			 <&cru SCLK_VDEC_CABAC>, <&cru SCLK_VDEC_CORE>;
 +		clock-names = "axi", "ahb", "cabac", "core";
-+		assigned-clocks = <&cru ACLK_RKVDEC>, <&cru SCLK_VDEC_CABAC>,
++		assigned-clocks = <&cru SCLK_VDEC_CABAC>,
 +		                  <&cru SCLK_VDEC_CORE>;
-+		assigned-clock-rates = <500000000>, <300000000>,
++		assigned-clock-rates = <300000000>,
 +					<300000000>;
 +		resets = <&cru SRST_RKVDEC_H>, <&cru SRST_RKVDEC_A>,
 +		         <&cru SRST_RKVDEC_CORE>, <&cru SRST_RKVDEC_CABAC>,
