@@ -14,10 +14,74 @@ diff -ruPN linux/arch/arm/boot/dts/Makefile linux-new/arch/arm/boot/dts/Makefile
  	rk3229-evb.dtb \
  	rk3229-xms6.dtb \
  	rk3288-evb-act8846.dtb \
+diff -ruPN linux/arch/arm/boot/dts/rk3229-box-hk1mini-ovclk.dts linux-new/arch/arm/boot/dts/rk3229-box-hk1mini-ovclk.dts
+--- linux/arch/arm/boot/dts/rk3229-box-hk1mini-ovclk.dts	1970-01-01 01:00:00.000000000 +0100
++++ linux-new/arch/arm/boot/dts/rk3229-box-hk1mini-ovclk.dts	2022-03-29 12:14:01.556431763 +0200
+@@ -0,0 +1,60 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++
++/dts-v1/;
++#include "rk322x-box-dcdc.dtsi"
++#include "rk3229-cpu-opp-ovclk.dtsi"
++#include "rk3229-dram-ovclk.dtsi"
++
++/ {
++	model = "Rockchip RK3229 Box";
++
++	leds {
++		compatible = "gpio-leds";
++
++		led_power {
++			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_LOW>;
++			default-state = "on";
++		};
++		/*
++			little hack
++			this led has an inverted logic, in order to activate
++			when system shutdown/suspend
++		*/
++		led_suspend {
++			gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_HIGH>;
++			default-state = "on";
++		};
++	};
++};
++
++&dmc {
++	status = "okay";
++};
++
++&emmc {
++	status = "okay";
++};
++
++&nandc {
++	status = "okay";
++};
++
++&power_key {
++	status = "okay";
++};
++
++&sdio {
++	status = "okay";
++};
++
++&sdmmc {
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&usb_otg {
++	dr_mode = "host";
++};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-hk1mini.dts linux-new/arch/arm/boot/dts/rk3229-box-hk1mini.dts
 --- linux/arch/arm/boot/dts/rk3229-box-hk1mini.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-box-hk1mini.dts	2022-03-28 17:44:04.603148973 +0200
-@@ -0,0 +1,56 @@
++++ linux-new/arch/arm/boot/dts/rk3229-box-hk1mini.dts	2022-03-29 11:18:56.560293404 +0200
+@@ -0,0 +1,59 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -30,15 +94,82 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-hk1mini.dts linux-new/arch/arm/boo
 +	leds {
 +		compatible = "gpio-leds";
 +
-+		led_blue {
++		led_power {
 +			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_LOW>;
 +			default-state = "on";
-+			linux,default-trigger = "rc-feedback";
 +		};
++		/*
++			little hack
++			this led has an inverted logic, in order to activate
++			when system shutdown/suspend
++		*/
++		led_suspend {
++			gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_HIGH>;
++			default-state = "on";
++		};
++	};
++};
 +
-+		led_red {
++&dmc {
++	status = "okay";
++};
++
++&emmc {
++	status = "okay";
++};
++
++&nandc {
++	status = "okay";
++};
++
++&power_key {
++	status = "okay";
++};
++
++&sdio {
++	status = "okay";
++};
++
++&sdmmc {
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&usb_otg {
++	dr_mode = "host";
++};
+diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts
+--- linux/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts	1970-01-01 01:00:00.000000000 +0100
++++ linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts	2022-03-29 12:17:35.906440736 +0200
+@@ -0,0 +1,60 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++
++/dts-v1/;
++#include "rk322x-box-dcdc.dtsi"
++#include "rk3229-cpu-opp-ovclk.dtsi"
++#include "rk3229-dram-ovclk.dtsi"
++
++/ {
++	model = "Rockchip RK3229 Box";
++
++	leds {
++		compatible = "gpio-leds";
++
++		led_power {
 +			gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_LOW>;
-+			default-state = "off";
++			default-state = "on";
++		};
++		/*
++			little hack
++			this led has an inverted logic, in order to activate
++			when system shutdown/suspend
++		*/
++		led_suspend {
++			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_HIGH>;
++			default-state = "on";
 +		};
 +	};
 +};
@@ -76,8 +207,8 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-hk1mini.dts linux-new/arch/arm/boo
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts
 --- linux/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts	2022-03-28 17:43:41.861148021 +0200
-@@ -0,0 +1,56 @@
++++ linux-new/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts	2022-03-29 11:19:04.308293728 +0200
+@@ -0,0 +1,59 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -90,15 +221,73 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts linux-new/arch/arm/bo
 +	leds {
 +		compatible = "gpio-leds";
 +
-+		led_blue {
++		led_power {
 +			gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_LOW>;
 +			default-state = "on";
-+			linux,default-trigger = "rc-feedback";
 +		};
++		/*
++			little hack
++			this led has an inverted logic, in order to activate
++			when system shutdown/suspend
++		*/
++		led_suspend {
++			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_HIGH>;
++			default-state = "on";
++		};
++	};
++};
 +
-+		led_red {
-+			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_LOW>;
-+			default-state = "off";
++&dmc {
++	status = "okay";
++};
++
++&emmc {
++	status = "okay";
++};
++
++&nandc {
++	status = "okay";
++};
++
++&power_key {
++	status = "okay";
++};
++
++&sdio {
++	status = "okay";
++};
++
++&sdmmc {
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&usb_otg {
++	dr_mode = "host";
++};
+diff -ruPN linux/arch/arm/boot/dts/rk3229-box-tx2-ovclk.dts linux-new/arch/arm/boot/dts/rk3229-box-tx2-ovclk.dts
+--- linux/arch/arm/boot/dts/rk3229-box-tx2-ovclk.dts	1970-01-01 01:00:00.000000000 +0100
++++ linux-new/arch/arm/boot/dts/rk3229-box-tx2-ovclk.dts	2022-03-29 12:17:51.285441380 +0200
+@@ -0,0 +1,51 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++
++/dts-v1/;
++#include "rk322x-box-dcdc.dtsi"
++#include "rk3229-cpu-opp-ovclk.dtsi"
++#include "rk3229-dram-ovclk.dtsi"
++
++/ {
++	model = "Rockchip Tanix TX2 Box";
++
++	leds {
++		compatible = "gpio-leds";
++
++		led_power {
++			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_HIGH>;
++			default-state = "on";
 +		};
 +	};
 +};
@@ -136,8 +325,8 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts linux-new/arch/arm/bo
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-tx2.dts linux-new/arch/arm/boot/dts/rk3229-box-tx2.dts
 --- linux/arch/arm/boot/dts/rk3229-box-tx2.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-box-tx2.dts	2022-03-28 17:43:51.167148411 +0200
-@@ -0,0 +1,51 @@
++++ linux-new/arch/arm/boot/dts/rk3229-box-tx2.dts	2022-03-29 11:19:12.230294060 +0200
+@@ -0,0 +1,50 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -150,10 +339,9 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-tx2.dts linux-new/arch/arm/boot/dt
 +	leds {
 +		compatible = "gpio-leds";
 +
-+		led_blue {
++		led_power {
 +			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_HIGH>;
 +			default-state = "on";
-+			linux,default-trigger = "rc-feedback";
 +		};
 +	};
 +};
@@ -189,10 +377,69 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-tx2.dts linux-new/arch/arm/boot/dt
 +&usb_otg {
 +	dr_mode = "host";
 +};
+diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts linux-new/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts
+--- linux/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts	1970-01-01 01:00:00.000000000 +0100
++++ linux-new/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts	2022-03-29 12:16:36.513438250 +0200
+@@ -0,0 +1,55 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++
++/dts-v1/;
++#include "rk322x-box-dcdc.dtsi"
++#include "rk3229-cpu-opp-ovclk.dtsi"
++
++/ {
++	model = "Rockchip V88Mars Box";
++
++	leds {
++		compatible = "gpio-leds";
++
++		led_power {
++			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_HIGH>;
++			default-state = "on";
++		};
++		/* 
++			little hack 
++			this led has an inverted logic, in order to activate
++			when system shutdown/suspend
++		*/
++		led_suspend {
++			gpios = <&gpio0 RK_PA1 GPIO_ACTIVE_LOW>;
++			default-state = "on";
++		};
++	};
++};
++
++&emmc {
++	status = "okay";
++};
++
++&nandc {
++	status = "okay";
++};
++
++&power_key {
++	status = "okay";
++};
++
++&sdio {
++	status = "okay";
++};
++
++&sdmmc {
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&usb_otg {
++	dr_mode = "host";
++};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v88mars.dts linux-new/arch/arm/boot/dts/rk3229-box-v88mars.dts
 --- linux/arch/arm/boot/dts/rk3229-box-v88mars.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-box-v88mars.dts	2022-03-28 17:43:56.241148623 +0200
-@@ -0,0 +1,52 @@
++++ linux-new/arch/arm/boot/dts/rk3229-box-v88mars.dts	2022-03-29 11:19:19.714294373 +0200
+@@ -0,0 +1,55 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -205,15 +452,18 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v88mars.dts linux-new/arch/arm/boo
 +	leds {
 +		compatible = "gpio-leds";
 +
-+		led_blue {
++		led_power {
 +			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_HIGH>;
 +			default-state = "on";
-+			linux,default-trigger = "rc-feedback";
 +		};
-+
-+		led_red {
-+			gpios = <&gpio0 RK_PA1 GPIO_ACTIVE_HIGH>;
-+			default-state = "off";
++		/* 
++			little hack 
++			this led has an inverted logic, in order to activate
++			when system shutdown/suspend
++		*/
++		led_suspend {
++			gpios = <&gpio0 RK_PA1 GPIO_ACTIVE_LOW>;
++			default-state = "on";
 +		};
 +	};
 +};
@@ -247,8 +497,8 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v88mars.dts linux-new/arch/arm/boo
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box.dts linux-new/arch/arm/boot/dts/rk3229-box.dts
 --- linux/arch/arm/boot/dts/rk3229-box.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk3229-box.dts	2022-03-28 17:43:35.245147744 +0200
-@@ -0,0 +1,38 @@
++++ linux-new/arch/arm/boot/dts/rk3229-box.dts	2022-03-29 11:49:09.733369310 +0200
+@@ -0,0 +1,37 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -257,7 +507,6 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box.dts linux-new/arch/arm/boot/dts/rk
 +
 +/ {
 +	model = "Rockchip RK3229 Box";
-+
 +};
 +
 +&emmc {
@@ -398,6 +647,29 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp.dtsi linux-new/arch/arm/boot/d
 +			opp-microvolt = <1275000 1275000 1375000>;
 +		};
 +    };
++};
+diff -ruPN linux/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi linux-new/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi
+--- linux/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi	1970-01-01 01:00:00.000000000 +0100
++++ linux-new/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi	2022-03-29 12:13:03.222429321 +0200
+@@ -0,0 +1,19 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2017 Fuzhou Rockchip Electronics Co., Ltd
++ */
++
++/ {
++	compatible = "rockchip,rk3229";
++
++};
++
++&dmc_opp_table {
++
++		opp-534000000 {
++			status = "disabled";
++		};
++		opp-660000000 {
++			status = "okay";
++		};
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk322x-box-dcdc.dtsi linux-new/arch/arm/boot/dts/rk322x-box-dcdc.dtsi
 --- linux/arch/arm/boot/dts/rk322x-box-dcdc.dtsi	1970-01-01 01:00:00.000000000 +0100
