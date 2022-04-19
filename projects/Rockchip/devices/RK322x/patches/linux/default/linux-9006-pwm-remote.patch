@@ -1,6 +1,6 @@
 diff -ruPN linux/drivers/input/Kconfig linux-new/drivers/input/Kconfig
---- linux/drivers/input/Kconfig	2022-03-23 09:13:30.000000000 +0100
-+++ linux-new/drivers/input/Kconfig	2022-03-28 10:36:17.602074458 +0200
+--- linux/drivers/input/Kconfig	2022-04-13 21:01:11.000000000 +0200
++++ linux-new/drivers/input/Kconfig	2022-04-15 11:13:41.130840776 +0200
 @@ -199,6 +199,8 @@
  
  source "drivers/input/misc/Kconfig"
@@ -11,8 +11,8 @@ diff -ruPN linux/drivers/input/Kconfig linux-new/drivers/input/Kconfig
  
  endif
 diff -ruPN linux/drivers/input/Makefile linux-new/drivers/input/Makefile
---- linux/drivers/input/Makefile	2022-03-23 09:13:30.000000000 +0100
-+++ linux-new/drivers/input/Makefile	2022-03-28 10:39:39.602082915 +0200
+--- linux/drivers/input/Makefile	2022-04-13 21:01:11.000000000 +0200
++++ linux-new/drivers/input/Makefile	2022-04-15 11:13:41.131840776 +0200
 @@ -23,6 +23,7 @@
  obj-$(CONFIG_INPUT_MOUSE)	+= mouse/
  obj-$(CONFIG_INPUT_JOYSTICK)	+= joystick/
@@ -23,7 +23,7 @@ diff -ruPN linux/drivers/input/Makefile linux-new/drivers/input/Makefile
  
 diff -ruPN linux/drivers/input/remotectl/Kconfig linux-new/drivers/input/remotectl/Kconfig
 --- linux/drivers/input/remotectl/Kconfig	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/drivers/input/remotectl/Kconfig	2022-01-18 03:04:00.000000000 +0100
++++ linux-new/drivers/input/remotectl/Kconfig	2022-04-15 11:13:41.131840776 +0200
 @@ -0,0 +1,19 @@
 +# SPDX-License-Identifier: GPL-2.0
 +#
@@ -46,7 +46,7 @@ diff -ruPN linux/drivers/input/remotectl/Kconfig linux-new/drivers/input/remotec
 +endif
 diff -ruPN linux/drivers/input/remotectl/Makefile linux-new/drivers/input/remotectl/Makefile
 --- linux/drivers/input/remotectl/Makefile	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/drivers/input/remotectl/Makefile	2022-01-18 03:04:00.000000000 +0100
++++ linux-new/drivers/input/remotectl/Makefile	2022-04-15 11:13:41.131840776 +0200
 @@ -0,0 +1,8 @@
 +# SPDX-License-Identifier: GPL-2.0
 +#
@@ -58,8 +58,8 @@ diff -ruPN linux/drivers/input/remotectl/Makefile linux-new/drivers/input/remote
 +obj-$(CONFIG_ROCKCHIP_REMOTECTL_PWM)	+= rockchip_pwm_remotectl.o
 diff -ruPN linux/drivers/input/remotectl/rockchip_pwm_remotectl.c linux-new/drivers/input/remotectl/rockchip_pwm_remotectl.c
 --- linux/drivers/input/remotectl/rockchip_pwm_remotectl.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/drivers/input/remotectl/rockchip_pwm_remotectl.c	2022-03-28 15:20:50.964789212 +0200
-@@ -0,0 +1,847 @@
++++ linux-new/drivers/input/remotectl/rockchip_pwm_remotectl.c	2022-04-19 11:22:18.551311823 +0200
+@@ -0,0 +1,856 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +
 +#include <linux/arm-smccc.h>
@@ -70,6 +70,7 @@ diff -ruPN linux/drivers/input/remotectl/rockchip_pwm_remotectl.c linux-new/driv
 +#include <linux/irqdomain.h>
 +#include <linux/module.h>
 +#include <linux/of.h>
++#include <linux/leds.h>
 +#include <linux/platform_device.h>
 +#include <linux/module.h>
 +#include <linux/init.h>
@@ -144,6 +145,8 @@ diff -ruPN linux/drivers/input/remotectl/rockchip_pwm_remotectl.c linux-new/driv
 +};
 +
 +static struct rkxx_remotectl_button *remotectl_button;
++
++static struct led_trigger *led_feedback;
 +
 +static int remotectl_keybd_num_lookup(struct rkxx_remotectl_drvdata *ddata)
 +{
@@ -299,6 +302,7 @@ diff -ruPN linux/drivers/input/remotectl/rockchip_pwm_remotectl.c linux-new/driv
 +		if ((ddata->scandata&0x0ff) ==
 +		    ((~ddata->scandata >> 8) & 0x0ff)) {
 +			if (remotectl_keycode_lookup(ddata)) {
++				led_trigger_event(led_feedback, LED_OFF);
 +				ddata->press = 1;
 +				input_event(ddata->input, EV_KEY,
 +					    ddata->keycode, 1);
@@ -336,6 +340,7 @@ diff -ruPN linux/drivers/input/remotectl/rockchip_pwm_remotectl.c linux-new/driv
 +			input_sync(ddata->input);
 +			ddata->state = RMC_PRELOAD;
 +			ddata->press = 0;
++			led_trigger_event(led_feedback, LED_FULL);
 +		}
 +	}
 +	break;
@@ -353,6 +358,7 @@ diff -ruPN linux/drivers/input/remotectl/rockchip_pwm_remotectl.c linux-new/driv
 +		ddata->press = 0;
 +		input_event(ddata->input, EV_KEY, ddata->keycode, 0);
 +		input_sync(ddata->input);
++		led_trigger_event(led_feedback, LED_FULL);
 +	}
 +	ddata->state = RMC_PRELOAD;
 +}
@@ -807,6 +813,8 @@ diff -ruPN linux/drivers/input/remotectl/rockchip_pwm_remotectl.c linux-new/driv
 +	else
 +		dev_info(&pdev->dev, "Support ATF Wakeup\n");
 +
++	led_trigger_register_simple("rk-remote-feedback", &led_feedback);
++
 +	dev_info(&pdev->dev, "rk pwm remotectl init end!\n");
 +end:
 +	return 0;
@@ -821,6 +829,7 @@ diff -ruPN linux/drivers/input/remotectl/rockchip_pwm_remotectl.c linux-new/driv
 +
 +static int rk_pwm_remove(struct platform_device *pdev)
 +{
++	led_trigger_unregister_simple(led_feedback);
 +	return 0;
 +}
 +
@@ -851,7 +860,7 @@ diff -ruPN linux/drivers/input/remotectl/rockchip_pwm_remotectl.c linux-new/driv
 +	int pwm_id;
 +	struct platform_device *pdev = to_platform_device(dev);
 +	struct rkxx_remotectl_drvdata *ddata = platform_get_drvdata(pdev);
-+    struct arm_smccc_res res;
++	struct arm_smccc_res res;
 +	int state;
 +
 +	cpumask_clear(&cpumask);
@@ -909,7 +918,7 @@ diff -ruPN linux/drivers/input/remotectl/rockchip_pwm_remotectl.c linux-new/driv
 +MODULE_LICENSE("GPL");
 diff -ruPN linux/drivers/input/remotectl/rockchip_pwm_remotectl.h linux-new/drivers/input/remotectl/rockchip_pwm_remotectl.h
 --- linux/drivers/input/remotectl/rockchip_pwm_remotectl.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/drivers/input/remotectl/rockchip_pwm_remotectl.h	2022-01-18 03:04:00.000000000 +0100
++++ linux-new/drivers/input/remotectl/rockchip_pwm_remotectl.h	2022-04-15 11:13:41.131840776 +0200
 @@ -0,0 +1,160 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +
@@ -1072,8 +1081,8 @@ diff -ruPN linux/drivers/input/remotectl/rockchip_pwm_remotectl.h linux-new/driv
 +
 +#endif
 diff -ruPN linux/drivers/soc/rockchip/Makefile linux-new/drivers/soc/rockchip/Makefile
---- linux/drivers/soc/rockchip/Makefile	2021-10-27 09:56:57.000000000 +0200
-+++ linux-new/drivers/soc/rockchip/Makefile	2022-02-14 11:48:40.222469426 +0100
+--- linux/drivers/soc/rockchip/Makefile	2022-04-13 21:01:11.000000000 +0200
++++ linux-new/drivers/soc/rockchip/Makefile	2022-04-15 11:13:41.131840776 +0200
 @@ -5,3 +5,5 @@
  obj-$(CONFIG_ROCKCHIP_GRF) += grf.o
  obj-$(CONFIG_ROCKCHIP_IODOMAIN) += io-domain.o
@@ -1082,7 +1091,7 @@ diff -ruPN linux/drivers/soc/rockchip/Makefile linux-new/drivers/soc/rockchip/Ma
 +
 diff -ruPN linux/drivers/soc/rockchip/rockchip_pm_config.c linux-new/drivers/soc/rockchip/rockchip_pm_config.c
 --- linux/drivers/soc/rockchip/rockchip_pm_config.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/drivers/soc/rockchip/rockchip_pm_config.c	2022-03-28 17:42:13.080144305 +0200
++++ linux-new/drivers/soc/rockchip/rockchip_pm_config.c	2022-04-15 11:13:41.132840776 +0200
 @@ -0,0 +1,191 @@
 +/*
 + * Rockchip Generic power configuration support.
@@ -1277,7 +1286,7 @@ diff -ruPN linux/drivers/soc/rockchip/rockchip_pm_config.c linux-new/drivers/soc
 +MODULE_LICENSE("GPL");
 diff -ruPN linux/include/dt-bindings/suspend/rockchip-px30.h linux-new/include/dt-bindings/suspend/rockchip-px30.h
 --- linux/include/dt-bindings/suspend/rockchip-px30.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/include/dt-bindings/suspend/rockchip-px30.h	2022-01-18 03:04:00.000000000 +0100
++++ linux-new/include/dt-bindings/suspend/rockchip-px30.h	2022-04-15 11:13:41.132840776 +0200
 @@ -0,0 +1,53 @@
 +/*
 + * Header providing constants for Rockchip suspend bindings.
@@ -1334,7 +1343,7 @@ diff -ruPN linux/include/dt-bindings/suspend/rockchip-px30.h linux-new/include/d
 +#endif
 diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk1808.h linux-new/include/dt-bindings/suspend/rockchip-rk1808.h
 --- linux/include/dt-bindings/suspend/rockchip-rk1808.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/include/dt-bindings/suspend/rockchip-rk1808.h	2022-01-18 03:04:00.000000000 +0100
++++ linux-new/include/dt-bindings/suspend/rockchip-rk1808.h	2022-04-15 11:13:41.132840776 +0200
 @@ -0,0 +1,46 @@
 +/* SPDX-License-Identifier: (GPL-2.0+ OR MIT) */
 +/*
@@ -1384,7 +1393,7 @@ diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk1808.h linux-new/include
 +#endif
 diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk322x.h linux-new/include/dt-bindings/suspend/rockchip-rk322x.h
 --- linux/include/dt-bindings/suspend/rockchip-rk322x.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/include/dt-bindings/suspend/rockchip-rk322x.h	2022-01-18 03:04:00.000000000 +0100
++++ linux-new/include/dt-bindings/suspend/rockchip-rk322x.h	2022-04-15 11:13:41.132840776 +0200
 @@ -0,0 +1,57 @@
 +/*
 + * Header providing constants for Rockchip suspend bindings.
@@ -1445,7 +1454,7 @@ diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk322x.h linux-new/include
 +#endif
 diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk3288.h linux-new/include/dt-bindings/suspend/rockchip-rk3288.h
 --- linux/include/dt-bindings/suspend/rockchip-rk3288.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/include/dt-bindings/suspend/rockchip-rk3288.h	2022-01-18 03:04:00.000000000 +0100
++++ linux-new/include/dt-bindings/suspend/rockchip-rk3288.h	2022-04-15 11:13:41.132840776 +0200
 @@ -0,0 +1,59 @@
 +/*
 + * Header providing constants for Rockchip suspend bindings.
@@ -1508,7 +1517,7 @@ diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk3288.h linux-new/include
 +#endif
 diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk3308.h linux-new/include/dt-bindings/suspend/rockchip-rk3308.h
 --- linux/include/dt-bindings/suspend/rockchip-rk3308.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/include/dt-bindings/suspend/rockchip-rk3308.h	2022-01-18 03:04:00.000000000 +0100
++++ linux-new/include/dt-bindings/suspend/rockchip-rk3308.h	2022-04-15 11:13:41.132840776 +0200
 @@ -0,0 +1,104 @@
 +/*
 + * Header providing constants for Rockchip suspend bindings.
@@ -1616,7 +1625,7 @@ diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk3308.h linux-new/include
 +#endif
 diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk3328.h linux-new/include/dt-bindings/suspend/rockchip-rk3328.h
 --- linux/include/dt-bindings/suspend/rockchip-rk3328.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/include/dt-bindings/suspend/rockchip-rk3328.h	2022-01-18 03:04:00.000000000 +0100
++++ linux-new/include/dt-bindings/suspend/rockchip-rk3328.h	2022-04-15 11:13:41.132840776 +0200
 @@ -0,0 +1,19 @@
 +/* SPDX-License-Identifier: (GPL-2.0+ OR MIT) */
 +/*
@@ -1639,7 +1648,7 @@ diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk3328.h linux-new/include
 +#endif
 diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk3368.h linux-new/include/dt-bindings/suspend/rockchip-rk3368.h
 --- linux/include/dt-bindings/suspend/rockchip-rk3368.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/include/dt-bindings/suspend/rockchip-rk3368.h	2022-01-18 03:04:00.000000000 +0100
++++ linux-new/include/dt-bindings/suspend/rockchip-rk3368.h	2022-04-15 11:13:41.132840776 +0200
 @@ -0,0 +1,56 @@
 +/*
 + * Header providing constants for Rockchip suspend bindings.
@@ -1699,7 +1708,7 @@ diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk3368.h linux-new/include
 +#endif
 diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk3399.h linux-new/include/dt-bindings/suspend/rockchip-rk3399.h
 --- linux/include/dt-bindings/suspend/rockchip-rk3399.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/include/dt-bindings/suspend/rockchip-rk3399.h	2022-01-18 03:04:00.000000000 +0100
++++ linux-new/include/dt-bindings/suspend/rockchip-rk3399.h	2022-04-15 11:13:41.133840776 +0200
 @@ -0,0 +1,61 @@
 +/*
 + * Header providing constants for Rockchip suspend bindings.
@@ -1764,7 +1773,7 @@ diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk3399.h linux-new/include
 +#endif
 diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk3568.h linux-new/include/dt-bindings/suspend/rockchip-rk3568.h
 --- linux/include/dt-bindings/suspend/rockchip-rk3568.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/include/dt-bindings/suspend/rockchip-rk3568.h	2022-01-18 03:04:00.000000000 +0100
++++ linux-new/include/dt-bindings/suspend/rockchip-rk3568.h	2022-04-15 11:13:41.133840776 +0200
 @@ -0,0 +1,57 @@
 +/* SPDX-License-Identifier: (GPL-2.0+ OR MIT) */
 +/*
@@ -1825,7 +1834,7 @@ diff -ruPN linux/include/dt-bindings/suspend/rockchip-rk3568.h linux-new/include
 +#endif
 diff -ruPN linux/include/dt-bindings/suspend/rockchip-rv1126.h linux-new/include/dt-bindings/suspend/rockchip-rv1126.h
 --- linux/include/dt-bindings/suspend/rockchip-rv1126.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/include/dt-bindings/suspend/rockchip-rv1126.h	2022-01-18 03:04:00.000000000 +0100
++++ linux-new/include/dt-bindings/suspend/rockchip-rv1126.h	2022-04-15 11:13:41.133840776 +0200
 @@ -0,0 +1,46 @@
 +/* SPDX-License-Identifier: (GPL-2.0+ OR MIT) */
 +/*
@@ -1874,8 +1883,8 @@ diff -ruPN linux/include/dt-bindings/suspend/rockchip-rv1126.h linux-new/include
 +#define RKPM_TIME_OUT_WKUP_EN		BIT(10)
 +#endif
 diff -ruPN linux/include/soc/rockchip/rockchip_sip.h linux-new/include/soc/rockchip/rockchip_sip.h
---- linux/include/soc/rockchip/rockchip_sip.h	2022-03-28 11:28:05.028204547 +0200
-+++ linux-new/include/soc/rockchip/rockchip_sip.h	2022-03-28 16:32:04.315968110 +0200
+--- linux/include/soc/rockchip/rockchip_sip.h	2022-04-15 11:11:32.975835411 +0200
++++ linux-new/include/soc/rockchip/rockchip_sip.h	2022-04-15 11:13:41.133840776 +0200
 @@ -6,6 +6,8 @@
  #ifndef __SOC_ROCKCHIP_SIP_H
  #define __SOC_ROCKCHIP_SIP_H
