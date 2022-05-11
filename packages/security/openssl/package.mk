@@ -3,8 +3,8 @@
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="openssl"
-PKG_VERSION="1.1.1k"
-PKG_SHA256="892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5"
+PKG_VERSION="1.1.1o"
+PKG_SHA256="9384a2b0570dd80358841464677115df785edb941c71211f75076d72fe6b438f"
 PKG_LICENSE="BSD"
 PKG_SITE="https://www.openssl.org"
 PKG_URL="https://www.openssl.org/source/${PKG_NAME}-${PKG_VERSION}.tar.gz"
@@ -32,7 +32,7 @@ PKG_CONFIGURE_OPTS_SHARED="--libdir=lib \
 
 PKG_CONFIGURE_OPTS_HOST="--prefix=${TOOLCHAIN} \
                          --openssldir=${TOOLCHAIN}/etc/ssl"
-PKG_CONFIGURE_OPTS_TARGET="--prefix=/usr \
+PKG_CONFIGURE_OPTS_TARGET="-DHAVE_CRYPTODEV -DUSE_CRYPTODEV_DIGESTS --prefix=/usr \
                            --openssldir=/etc/ssl"
 
 post_unpack() {
