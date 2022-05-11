@@ -142204,8 +142204,8 @@ diff -ruPN linux/drivers/rk_nand/rk_nand_base.h linux-new/drivers/rk_nand/rk_nan
 +#endif
 diff -ruPN linux/drivers/rk_nand/rk_nand_blk.c linux-new/drivers/rk_nand/rk_nand_blk.c
 --- linux/drivers/rk_nand/rk_nand_blk.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/drivers/rk_nand/rk_nand_blk.c	2022-03-04 10:25:23.873825428 +0100
-@@ -0,0 +1,624 @@
++++ linux-new/drivers/rk_nand/rk_nand_blk.c	2022-05-10 19:54:47.332221263 +0200
+@@ -0,0 +1,629 @@
 +/*
 + * Copyright (c) 2016, Fuzhou Rockchip Electronics Co., Ltd
 + *
@@ -142342,7 +142342,9 @@ diff -ruPN linux/drivers/rk_nand/rk_nand_blk.c linux-new/drivers/rk_nand/rk_nand
 +	case READ:
 +		totle_read_data += nsector;
 +		totle_read_count++;
++		rknand_device_lock();
 +		ret = FtlRead(0, start, nsector, buf);
++		rknand_device_unlock();
 +		if (ret)
 +			ret = BLK_STS_IOERR;
 +		break;
@@ -142350,7 +142352,9 @@ diff -ruPN linux/drivers/rk_nand/rk_nand_blk.c linux-new/drivers/rk_nand/rk_nand
 +	case WRITE:
 +		totle_write_data += nsector;
 +		totle_write_count++;
++		rknand_device_lock();
 +		ret = FtlWrite(0, start, nsector, buf);
++		rknand_device_unlock();
 +		if (ret)
 +			ret = BLK_STS_IOERR;
 +		break;
@@ -142448,9 +142452,9 @@ diff -ruPN linux/drivers/rk_nand/rk_nand_blk.c linux-new/drivers/rk_nand/rk_nand
 +	rk_ftl_gc_do = 0;
 +
 +	blk_mq_start_request(bd->rq);
-+	rknand_device_lock();
++	//rknand_device_lock();
 +	res = do_blktrans_all_request(dev, bd->rq);
-+	rknand_device_unlock();
++	//rknand_device_unlock();
 +	if (!blk_update_request(bd->rq, res, bd->rq->__data_len)) {
 +		__blk_mq_end_request(bd->rq, res);
 +	}
@@ -142503,11 +142507,12 @@ diff -ruPN linux/drivers/rk_nand/rk_nand_blk.c linux-new/drivers/rk_nand/rk_nand
 +			if (req_empty_times < 10)
 +				rk_ftl_gc_jiffies = HZ / 50;
 +			/* cache write back after 100ms */
-+			if (req_empty_times >= 5 && req_empty_times < 7) {
-+				rknand_device_lock();
-+				pr_info("cache write back");
-+				rk_ftl_cache_write_back();
-+				rknand_device_unlock();
++			if (req_empty_times > 5 && req_empty_times < 7) {
++				if (rknand_device_trylock()) {
++				    pr_info("cache write back");
++				    rk_ftl_cache_write_back();
++				    rknand_device_unlock();
++				}
 +			}
 +		} else {
 +			req_empty_times = 0;
@@ -142678,7 +142683,7 @@ diff -ruPN linux/drivers/rk_nand/rk_nand_blk.c linux-new/drivers/rk_nand/rk_nand
 +		goto tag_set_error;
 +
 +	nand_ops->rq =
-+	    blk_mq_init_sq_queue(nand_ops->tag_set, &rk_nand_mq_ops, 1,
++	    blk_mq_init_sq_queue(nand_ops->tag_set, &rk_nand_mq_ops, 4,
 +				 BLK_MQ_F_SHOULD_MERGE | BLK_MQ_F_BLOCKING);
 +
 +	if (IS_ERR(nand_ops->rq)) {
