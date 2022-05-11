@@ -16,8 +16,8 @@ diff -ruPN linux/arch/arm/boot/dts/Makefile linux-trip/arch/arm/boot/dts/Makefil
  	rk3288-evb-act8846.dtb \
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-hk1mini-ovclk.dts linux-trip/arch/arm/boot/dts/rk3229-box-hk1mini-ovclk.dts
 --- linux/arch/arm/boot/dts/rk3229-box-hk1mini-ovclk.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk3229-box-hk1mini-ovclk.dts	2022-04-15 16:46:34.047676916 +0200
-@@ -0,0 +1,61 @@
++++ linux-trip/arch/arm/boot/dts/rk3229-box-hk1mini-ovclk.dts	2022-05-10 18:55:33.181072473 +0200
+@@ -0,0 +1,41 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -58,31 +58,11 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-hk1mini-ovclk.dts linux-trip/arch/
 +
 +&nandc {
 +	status = "okay";
-+};
-+
-+&power_key {
-+	status = "okay";
-+};
-+
-+&sdio {
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&usb_otg {
-+	dr_mode = "host";
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-hk1mini.dts linux-trip/arch/arm/boot/dts/rk3229-box-hk1mini.dts
 --- linux/arch/arm/boot/dts/rk3229-box-hk1mini.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk3229-box-hk1mini.dts	2022-04-15 16:46:25.690676566 +0200
-@@ -0,0 +1,60 @@
++++ linux-trip/arch/arm/boot/dts/rk3229-box-hk1mini.dts	2022-04-21 10:50:31.533638585 +0200
+@@ -0,0 +1,40 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -117,36 +97,16 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-hk1mini.dts linux-trip/arch/arm/bo
 +};
 +
 +&emmc {
-+	status = "okay";
++	status = "disabled";
 +};
 +
 +&nandc {
 +	status = "okay";
-+};
-+
-+&power_key {
-+	status = "okay";
-+};
-+
-+&sdio {
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&usb_otg {
-+	dr_mode = "host";
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts linux-trip/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts
 --- linux/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts	2022-04-15 16:46:17.275676214 +0200
-@@ -0,0 +1,61 @@
++++ linux-trip/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts	2022-04-21 10:47:24.827630769 +0200
+@@ -0,0 +1,41 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -187,31 +147,11 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro-ovclk.dts linux-trip/arch
 +
 +&nandc {
 +	status = "okay";
-+};
-+
-+&power_key {
-+	status = "okay";
-+};
-+
-+&sdio {
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&usb_otg {
-+	dr_mode = "host";
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts linux-trip/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts
 --- linux/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts	2022-04-15 16:46:06.582675766 +0200
-@@ -0,0 +1,60 @@
++++ linux-trip/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts	2022-04-21 10:52:16.758642990 +0200
+@@ -0,0 +1,40 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -246,36 +186,16 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-mxq4kpro.dts linux-trip/arch/arm/b
 +};
 +
 +&emmc {
-+	status = "okay";
++	status = "disabled";
 +};
 +
 +&nandc {
 +	status = "okay";
 +};
-+
-+&power_key {
-+	status = "okay";
-+};
-+
-+&sdio {
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&usb_otg {
-+	dr_mode = "host";
-+};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-tx2-ovclk.dts linux-trip/arch/arm/boot/dts/rk3229-box-tx2-ovclk.dts
 --- linux/arch/arm/boot/dts/rk3229-box-tx2-ovclk.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk3229-box-tx2-ovclk.dts	2022-04-15 16:45:58.175675414 +0200
-@@ -0,0 +1,52 @@
++++ linux-trip/arch/arm/boot/dts/rk3229-box-tx2-ovclk.dts	2022-04-21 10:52:52.071644468 +0200
+@@ -0,0 +1,32 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -306,32 +226,12 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-tx2-ovclk.dts linux-trip/arch/arm/
 +};
 +
 +&nandc {
-+	status = "okay";
-+};
-+
-+&power_key {
-+	status = "okay";
-+};
-+
-+&sdio {
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&usb_otg {
-+	dr_mode = "host";
++	status = "disabled";
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-box-tx2.dts linux-trip/arch/arm/boot/dts/rk3229-box-tx2.dts
 --- linux/arch/arm/boot/dts/rk3229-box-tx2.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk3229-box-tx2.dts	2022-04-15 16:45:49.966675071 +0200
-@@ -0,0 +1,51 @@
++++ linux-trip/arch/arm/boot/dts/rk3229-box-tx2.dts	2022-04-21 10:52:57.757644706 +0200
+@@ -0,0 +1,31 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -361,40 +261,21 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-tx2.dts linux-trip/arch/arm/boot/d
 +};
 +
 +&nandc {
-+	status = "okay";
++	status = "disabled";
 +};
-+
-+&power_key {
-+	status = "okay";
-+};
-+
-+&sdio {
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&usb_otg {
-+	dr_mode = "host";
-+};
-diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts linux-trip/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts
---- linux/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts	2022-04-15 16:45:39.596674637 +0200
-@@ -0,0 +1,56 @@
+diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v884k-ovclk.dts linux-trip/arch/arm/boot/dts/rk3229-box-v884k-ovclk.dts
+--- linux/arch/arm/boot/dts/rk3229-box-v884k-ovclk.dts	1970-01-01 01:00:00.000000000 +0100
++++ linux-trip/arch/arm/boot/dts/rk3229-box-v884k-ovclk.dts	2022-04-26 13:21:08.829255976 +0200
+@@ -0,0 +1,32 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
 +#include "rk322x-box-dcdc.dtsi"
 +#include "rk3229-cpu-opp-ovclk.dtsi"
++#include "rk3229-dram-ovclk.dtsi"
 +
 +/ {
-+	model = "Rockchip V88Mars Box";
++	model = "Rockchip RK3229 Box";
 +
 +	leds {
 +		compatible = "gpio-leds";
@@ -404,49 +285,24 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts linux-trip/arch/
 +			default-state = "on";
 +			linux,default-trigger = "rk-remote-feedback";
 +		};
-+		/* 
-+			little hack 
-+			this led has an inverted logic, in order to activate
-+			when system shutdown/suspend
-+		*/
-+		led_suspend {
-+			gpios = <&gpio0 RK_PA1 GPIO_ACTIVE_LOW>;
-+			default-state = "on";
-+		};
 +	};
 +};
 +
-+&emmc {
++&dmc {
 +	status = "okay";
++};
++
++&emmc {
++	status = "disabled";
 +};
 +
 +&nandc {
 +	status = "okay";
 +};
-+
-+&power_key {
-+	status = "okay";
-+};
-+
-+&sdio {
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&usb_otg {
-+	dr_mode = "host";
-+};
-diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v88mars.dts linux-trip/arch/arm/boot/dts/rk3229-box-v88mars.dts
---- linux/arch/arm/boot/dts/rk3229-box-v88mars.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk3229-box-v88mars.dts	2022-04-15 16:45:22.428673918 +0200
-@@ -0,0 +1,56 @@
+diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v884k.dts linux-trip/arch/arm/boot/dts/rk3229-box-v884k.dts
+--- linux/arch/arm/boot/dts/rk3229-box-v884k.dts	1970-01-01 01:00:00.000000000 +0100
++++ linux-trip/arch/arm/boot/dts/rk3229-box-v884k.dts	2022-04-26 13:19:42.969252381 +0200
+@@ -0,0 +1,31 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -454,7 +310,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v88mars.dts linux-trip/arch/arm/bo
 +#include "rk3229-cpu-opp.dtsi"
 +
 +/ {
-+	model = "Rockchip V88Mars Box";
++	model = "Rockchip RK3229 Box";
 +
 +	leds {
 +		compatible = "gpio-leds";
@@ -464,53 +320,109 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v88mars.dts linux-trip/arch/arm/bo
 +			default-state = "on";
 +			linux,default-trigger = "rk-remote-feedback";
 +		};
-+		/* 
-+			little hack 
-+			this led has an inverted logic, in order to activate
-+			when system shutdown/suspend
-+		*/
-+		led_suspend {
-+			gpios = <&gpio0 RK_PA1 GPIO_ACTIVE_LOW>;
-+			default-state = "on";
-+		};
 +	};
 +};
 +
-+&emmc {
++&dmc {
 +	status = "okay";
++};
++
++&emmc {
++	status = "disabled";
 +};
 +
 +&nandc {
 +	status = "okay";
 +};
-+
-+&power_key {
-+	status = "okay";
-+};
-+
-+&sdio {
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&usb_otg {
-+	dr_mode = "host";
-+};
-diff -ruPN linux/arch/arm/boot/dts/rk3229-box.dts linux-trip/arch/arm/boot/dts/rk3229-box.dts
---- linux/arch/arm/boot/dts/rk3229-box.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk3229-box.dts	2022-04-15 10:39:10.142754077 +0200
+diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts linux-trip/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts
+--- linux/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts	1970-01-01 01:00:00.000000000 +0100
++++ linux-trip/arch/arm/boot/dts/rk3229-box-v88mars-ovclk.dts	2022-04-21 10:50:15.760637925 +0200
 @@ -0,0 +1,37 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
 +#include "rk322x-box-dcdc.dtsi"
++#include "rk3229-cpu-opp-ovclk.dtsi"
++
++/ {
++	model = "Rockchip V88Mars Box";
++
++	leds {
++		compatible = "gpio-leds";
++
++		led_power {
++			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_HIGH>;
++			default-state = "on";
++			linux,default-trigger = "rk-remote-feedback";
++		};
++		/* 
++			little hack 
++			this led has an inverted logic, in order to activate
++			when system shutdown/suspend
++		*/
++		led_suspend {
++			gpios = <&gpio0 RK_PA1 GPIO_ACTIVE_LOW>;
++			default-state = "on";
++		};
++	};
++};
++
++&emmc {
++	status = "disabled";
++};
++
++&nandc {
++	status = "okay";
++};
++
+diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v88mars.dts linux-trip/arch/arm/boot/dts/rk3229-box-v88mars.dts
+--- linux/arch/arm/boot/dts/rk3229-box-v88mars.dts	1970-01-01 01:00:00.000000000 +0100
++++ linux-trip/arch/arm/boot/dts/rk3229-box-v88mars.dts	2022-04-21 10:50:08.473637619 +0200
+@@ -0,0 +1,36 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++
++/dts-v1/;
++#include "rk322x-box-dcdc.dtsi"
++#include "rk3229-cpu-opp.dtsi"
++
++/ {
++	model = "Rockchip V88Mars Box";
++
++	leds {
++		compatible = "gpio-leds";
++
++		led_power {
++			gpios = <&gpio3 RK_PC5 GPIO_ACTIVE_HIGH>;
++			default-state = "on";
++			linux,default-trigger = "rk-remote-feedback";
++		};
++		/* 
++			little hack 
++			this led has an inverted logic, in order to activate
++			when system shutdown/suspend
++		*/
++		led_suspend {
++			gpios = <&gpio0 RK_PA1 GPIO_ACTIVE_LOW>;
++			default-state = "on";
++		};
++	};
++};
++
++&emmc {
++	status = "disabled";
++};
++
++&nandc {
++	status = "okay";
++};
+diff -ruPN linux/arch/arm/boot/dts/rk3229-box.dts linux-trip/arch/arm/boot/dts/rk3229-box.dts
+--- linux/arch/arm/boot/dts/rk3229-box.dts	1970-01-01 01:00:00.000000000 +0100
++++ linux-trip/arch/arm/boot/dts/rk3229-box.dts	2022-04-21 10:45:29.790625953 +0200
+@@ -0,0 +1,19 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++
++/dts-v1/;
++#include "rk322x-box-dcdc.dtsi"
 +#include "rk3229-cpu-opp.dtsi"
 +
 +/ {
@@ -525,28 +437,10 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box.dts linux-trip/arch/arm/boot/dts/r
 +	status = "okay";
 +};
 +
-+&power_key {
-+	status = "okay";
-+};
 +
-+&sdio {
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&usb_otg {
-+	dr_mode = "host";
-+};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi linux-trip/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi
 --- linux/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi	2022-04-19 14:13:30.491741844 +0200
++++ linux-trip/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi	2022-05-08 11:58:15.567014131 +0200
 @@ -0,0 +1,54 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
@@ -564,20 +458,20 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi linux-trip/arch/arm
 +
 +		opp-408000000 {
 +			opp-hz = /bits/ 64 <408000000>;
-+			opp-microvolt = <950000 950000 1375000>;
++			opp-microvolt = <975000 975000 1375000>;
 +			clock-latency-ns = <40000>;
 +			opp-suspend;
 +			status = "okay";
 +		};
 +		opp-600000000 {
 +			opp-hz = /bits/ 64 <600000000>;
-+			opp-microvolt = <975000 975000 1375000>;
++			opp-microvolt = <1000000 1000000 1375000>;
 +			opp-suspend;
 +			status = "okay";
 +		};
 +		opp-816000000 {
 +			opp-hz = /bits/ 64 <816000000>;
-+			opp-microvolt = <1000000 1000000 1375000>;
++			opp-microvolt = <1025000 1025000 1375000>;
 +			opp-suspend;
 +		};
 +		opp-1008000000 {
@@ -588,23 +482,23 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp-ovclk.dtsi linux-trip/arch/arm
 +			opp-hz = /bits/ 64 <1200000000>;
 +			opp-microvolt = <1175000 1175000 1375000>;
 +		};
-+		opp-1300000000 {
-+			opp-hz = /bits/ 64 <1300000000>;
++		opp-1296000000 {
++			opp-hz = /bits/ 64 <1296000000>;
 +			opp-microvolt = <1225000 1225000 1375000>;
 +		};
-+		opp-1400000000 {
-+			opp-hz = /bits/ 64 <1400000000>;
++		opp-1392000000 {
++			opp-hz = /bits/ 64 <1392000000>;
 +			opp-microvolt = <1275000 1275000 1375000>;
 +		};
-+		opp-1500000000 {
-+			opp-hz = /bits/ 64 <1500000000>;
++		opp-1488000000 {
++			opp-hz = /bits/ 64 <1488000000>;
 +			opp-microvolt = <1325000 1325000 1375000>;
 +		};
 +	};
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp.dtsi linux-trip/arch/arm/boot/dts/rk3229-cpu-opp.dtsi
 --- linux/arch/arm/boot/dts/rk3229-cpu-opp.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk3229-cpu-opp.dtsi	2022-04-15 10:39:10.142754077 +0200
++++ linux-trip/arch/arm/boot/dts/rk3229-cpu-opp.dtsi	2022-05-09 19:19:50.504316933 +0200
 @@ -0,0 +1,50 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
@@ -622,20 +516,20 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp.dtsi linux-trip/arch/arm/boot/
 +
 +		opp-408000000 {
 +			opp-hz = /bits/ 64 <408000000>;
-+			opp-microvolt = <950000 950000 1375000>;
++			opp-microvolt = <975000 975000 1375000>;
 +			clock-latency-ns = <40000>;
 +			opp-suspend;
 +			status = "okay";
 +		};
 +		opp-600000000 {
 +			opp-hz = /bits/ 64 <600000000>;
-+			opp-microvolt = <975000 975000 1375000>;
++			opp-microvolt = <1000000 1000000 1375000>;
 +			opp-suspend;
 +			status = "okay";
 +		};
 +		opp-816000000 {
 +			opp-hz = /bits/ 64 <816000000>;
-+			opp-microvolt = <1000000 1000000 1375000>;
++			opp-microvolt = <1025000 1025000 1375000>;
 +			opp-suspend;
 +		};
 +		opp-1008000000 {
@@ -646,19 +540,19 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp.dtsi linux-trip/arch/arm/boot/
 +			opp-hz = /bits/ 64 <1200000000>;
 +			opp-microvolt = <1175000 1175000 1375000>;
 +		};
-+		opp-1300000000 {
-+			opp-hz = /bits/ 64 <1300000000>;
++		opp-1296000000 {
++			opp-hz = /bits/ 64 <1296000000>;
 +			opp-microvolt = <1225000 1225000 1375000>;
 +		};
-+		opp-1400000000 {
-+			opp-hz = /bits/ 64 <1400000000>;
++		opp-1392000000 {
++			opp-hz = /bits/ 64 <1392000000>;
 +			opp-microvolt = <1275000 1275000 1375000>;
 +		};
 +    };
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi linux-trip/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi
 --- linux/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi	2022-04-15 11:52:50.689939138 +0200
++++ linux-trip/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi	2022-04-27 15:21:52.560727404 +0200
 @@ -0,0 +1,20 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
@@ -672,10 +566,10 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi linux-trip/arch/arm/bo
 +
 +&dmc_opp_table {
 +
-+		opp-534000000 {
++		opp-594000000 {
 +			status = "disabled";
 +		};
-+		opp-660000000 {
++		opp-696000000 {
 +			status = "okay";
 +		};
 +
@@ -849,8 +743,8 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box-dcdc.dtsi linux-trip/arch/arm/boot
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-trip/arch/arm/boot/dts/rk322x-box.dtsi
 --- linux/arch/arm/boot/dts/rk322x-box.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk322x-box.dtsi	2022-04-19 14:51:45.447837920 +0200
-@@ -0,0 +1,1038 @@
++++ linux-trip/arch/arm/boot/dts/rk322x-box.dtsi	2022-05-11 09:29:10.789289922 +0200
+@@ -0,0 +1,1049 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -885,7 +779,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-trip/arch/arm/boot/dts/
 +			linux,code = <KEY_POWER>;
 +			debounce-interval = <100>;
 +			wakeup-source;
-+			status = "disabled";
++			status = "okay";
 +		};
 +	};
 +
@@ -1091,12 +985,21 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-trip/arch/arm/boot/dts/
 +	keep-power-in-suspend;
 +	non-removable;
 +	no-sd;
++	no-mmc;
++	status = "okay";
 +};
 +
 +&sdmmc {
++	/delete-property/ pinctrl-names;
++	/delete-property/ pinctrl-0;
++
 +	cap-sd-highspeed;
 +	keep-power-in-suspend;
 +	no-sdio;
++	no-mmc;
++	cd-gpios = <&gpio1 RK_PC1 GPIO_ACTIVE_LOW>;
++	cd-debounce-delay-ms = <500>;
++	status = "okay";
 +};
 +
 +&tsadc {
@@ -1134,6 +1037,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-trip/arch/arm/boot/dts/
 +&uart1 {
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&uart11_xfer &uart11_rts &uart11_cts>;
++  status = "okay";
 +};
 +
 +&uart2 {
@@ -1165,6 +1069,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-trip/arch/arm/boot/dts/
 +};
 +
 +&usb_otg {
++  dr_mode = "host";
 +	status = "okay";
 +};
 +
@@ -1891,7 +1796,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-trip/arch/arm/boot/dts/
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk322x.dtsi linux-trip/arch/arm/boot/dts/rk322x.dtsi
 --- linux/arch/arm/boot/dts/rk322x.dtsi	2022-03-13 16:23:25.334634123 +0100
-+++ linux-trip/arch/arm/boot/dts/rk322x.dtsi	2022-04-15 10:39:10.143754077 +0200
++++ linux-trip/arch/arm/boot/dts/rk322x.dtsi	2022-05-09 21:05:20.049581911 +0200
 @@ -126,19 +126,22 @@
  
  		opp-330000000 {
@@ -1899,29 +1804,44 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x.dtsi linux-trip/arch/arm/boot/dts/rk32
 -			opp-microvolt = <1050000 1000000 1200000>;
 +			opp-microvolt = <1050000 1050000 1200000>;
 +			status = "disabled";
- 		};
- 		opp-534000000 {
- 			opp-hz = /bits/ 64 <534000000>;
--			opp-microvolt = <1050000 1000000 1200000>;
++		};
++		opp-594000000 {
++			opp-hz = /bits/ 64 <594000000>;
 +			opp-microvolt = <1050000 1050000 1200000>;
 +			status = "okay";
- 		};
--		opp-600000000 {
--			opp-hz = /bits/ 64 <600000000>;
--			opp-microvolt = <1100000 1000000 1200000>;
-+		opp-660000000 {
-+			opp-hz = /bits/ 64 <660000000>;
++		};
++		opp-696000000 {
++			opp-hz = /bits/ 64 <696000000>;
 +			opp-microvolt = <1100000 1050000 1200000>;
 +			status = "disabled";
  		};
- 		opp-786000000 {
- 			opp-hz = /bits/ 64 <786000000>;
+-		opp-534000000 {
+-			opp-hz = /bits/ 64 <534000000>;
+-			opp-microvolt = <1050000 1000000 1200000>;
+-		};
+-		opp-600000000 {
+-			opp-hz = /bits/ 64 <600000000>;
 -			opp-microvolt = <1100000 1000000 1200000>;
+-		};
+-		opp-786000000 {
+-			opp-hz = /bits/ 64 <786000000>;
+-			opp-microvolt = <1100000 1000000 1200000>;
++		opp-800000000 {
++			opp-hz = /bits/ 64 <800000000>;
 +			opp-microvolt = <1100000 1050000 1200000>;
  			status = "disabled";
  		};
  	};
-@@ -737,17 +740,17 @@
+@@ -245,6 +248,8 @@
+ 		clocks = <&cru HCLK_M_CRYPTO>, <&cru HCLK_S_CRYPTO>,
+ 		<&cru SCLK_CRYPTO>, <&cru ACLK_DMAC>;
+ 		clock-names = "aclk", "hclk", "sclk", "apb_pclk";
++		assigned-clocks = <&cru SCLK_CRYPTO>, <&cru HCLK_S_CRYPTO>;
++		assigned-clock-rates = <150000000>, <100000000>;
+ 		resets = <&cru SRST_CRYPTO>;
+ 		reset-names = "crypto-rst";
+ 	};
+@@ -737,17 +742,17 @@
  
  		opp-300000000 {
  			opp-hz = /bits/ 64 <300000000>;
