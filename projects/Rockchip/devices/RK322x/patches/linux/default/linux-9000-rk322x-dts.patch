@@ -552,7 +552,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-cpu-opp.dtsi linux-trip/arch/arm/boot/
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi linux-trip/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi
 --- linux/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi	2022-04-27 15:21:52.560727404 +0200
++++ linux-trip/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi	2022-05-11 11:52:25.031649708 +0200
 @@ -0,0 +1,20 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
@@ -566,10 +566,10 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-dram-ovclk.dtsi linux-trip/arch/arm/bo
 +
 +&dmc_opp_table {
 +
-+		opp-594000000 {
++		opp-534000000 {
 +			status = "disabled";
 +		};
-+		opp-696000000 {
++		opp-660000000 {
 +			status = "okay";
 +		};
 +
@@ -1796,7 +1796,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-trip/arch/arm/boot/dts/
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk322x.dtsi linux-trip/arch/arm/boot/dts/rk322x.dtsi
 --- linux/arch/arm/boot/dts/rk322x.dtsi	2022-03-13 16:23:25.334634123 +0100
-+++ linux-trip/arch/arm/boot/dts/rk322x.dtsi	2022-05-09 21:05:20.049581911 +0200
++++ linux-trip/arch/arm/boot/dts/rk322x.dtsi	2022-05-11 11:52:07.931648993 +0200
 @@ -126,19 +126,22 @@
  
  		opp-330000000 {
@@ -1804,21 +1804,18 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x.dtsi linux-trip/arch/arm/boot/dts/rk32
 -			opp-microvolt = <1050000 1000000 1200000>;
 +			opp-microvolt = <1050000 1050000 1200000>;
 +			status = "disabled";
-+		};
-+		opp-594000000 {
-+			opp-hz = /bits/ 64 <594000000>;
+ 		};
+ 		opp-534000000 {
+ 			opp-hz = /bits/ 64 <534000000>;
+-			opp-microvolt = <1050000 1000000 1200000>;
 +			opp-microvolt = <1050000 1050000 1200000>;
 +			status = "okay";
 +		};
-+		opp-696000000 {
-+			opp-hz = /bits/ 64 <696000000>;
++		opp-660000000 {
++			opp-hz = /bits/ 64 <660000000>;
 +			opp-microvolt = <1100000 1050000 1200000>;
 +			status = "disabled";
  		};
--		opp-534000000 {
--			opp-hz = /bits/ 64 <534000000>;
--			opp-microvolt = <1050000 1000000 1200000>;
--		};
 -		opp-600000000 {
 -			opp-hz = /bits/ 64 <600000000>;
 -			opp-microvolt = <1100000 1000000 1200000>;
