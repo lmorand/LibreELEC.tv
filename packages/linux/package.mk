@@ -28,8 +28,8 @@ case "${LINUX}" in
     PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
     ;;
   *)
-    PKG_VERSION="5.10.115"
-    PKG_SHA256="f5e417b32f89318b6d0a230109a592ffd68997817463dc4692fa49ec7fe42f71"
+    PKG_VERSION="5.10.118"
+    PKG_SHA256="c5e020f187a195ab0924fe7e71b8ab8fb92936ab47bc9d15e78daabddefe0b4b"
     PKG_URL="https://www.kernel.org/pub/linux/kernel/v5.x/${PKG_NAME}-${PKG_VERSION}.tar.xz"
     PKG_PATCH_DIRS="default"
     ;;
