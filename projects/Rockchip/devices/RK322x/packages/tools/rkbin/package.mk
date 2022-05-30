@@ -5,7 +5,7 @@ PKG_NAME="rkbin"
 
 # Version is: knaerzche/tag:libreelec-991d0e4
 PKG_VERSION="22492efa74236858a5b8c2044cf6e89f446bfea6"
-PKG_SHA256="f3cb2787e7d2b9701f7ad19564428c19337ce818ec541072501a4c1e96d89677"
+PKG_SHA256="75834eedce81ea58a753a2d294861af3e148727e69acbbf79b9197add283a784"
 PKG_ARCH="arm aarch64"
 PKG_LICENSE="nonfree"
 PKG_SITE="https://github.com/rockchip-linux/rkbin"
