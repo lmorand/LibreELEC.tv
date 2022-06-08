@@ -32,7 +32,9 @@
 		rk3229-box-hk1mini.dtb \
 		rk3229-box-hk1mini-ovclk.dtb \
 		rk3229-box-tx2.dtb \
-		rk3229-box-tx2-ovclk.dtb"
+		rk3229-box-tx2-ovclk.dtb \
+		rk3229-board-mx4vr-v01.dtb \
+		rk3229-board-mx4v-v10.dtb"
 
   # Mali GPU family
     MALI_FAMILY="400"
