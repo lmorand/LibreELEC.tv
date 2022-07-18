@@ -1334,7 +1334,7 @@ index 000000000000..b3bf27d62f3a
 +	spdif-sound {
 +		status = "okay";
 +		compatible = "simple-audio-card";
-+		simple-audio-card,name = "ROCKCHIP,SPDIF";
++		simple-audio-card,name = "SPDIF";
 +		simple-audio-card,cpu {
 +			sound-dai = <&spdif>;
 +		};
